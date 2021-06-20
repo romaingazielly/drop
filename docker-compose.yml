@@ -17,8 +17,8 @@ services:
       - db
     image: wordpress:latest
     volumes:
-      - wordpress_data:/var/www/html
-      - custom.ini:/usr/local/etc/php/conf.d/
+      - wordpress_data:./var/www/html
+      - custom.ini:./usr/local/etc/php/conf.d/
     ports:
       - "8000:80"
     restart: always
