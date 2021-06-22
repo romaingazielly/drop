@@ -34,3 +34,6 @@ wp-content/*
 
 # Ignore the wp-config file
 wp-config.php
+
+
+.DS_Store
