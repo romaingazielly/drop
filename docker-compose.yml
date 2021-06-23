@@ -11,13 +11,15 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+    ports:
+      - "3306:3306"
     
   wordpress:
     depends_on:
       - db
     image: wordpress:latest
     volumes:
-      - wordpress_data:/var/www/html
+      - .:/var/www/html
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
     ports:
       - "80:80"
@@ -29,4 +31,3 @@ services:
       WORDPRESS_DB_NAME: wordpress
 volumes:
   db_data: {}
-  wordpress_data: {}
