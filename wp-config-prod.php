@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'ergophone' );
+define( 'DB_NAME', 'database_name_here' );
 
 /** MySQL database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', 'username_here' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'clashofclan' );
+define( 'DB_PASSWORD', 'password_here' );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'db:3306' );
+define( 'DB_HOST', 'localhost' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -46,14 +46,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '8k|-!k(z+}by|Y)$Y_D4*;8SK TRD_SP8:[g}ZtxhsE_%+acCWlKOrL4/!(#tmr]');
-define('SECURE_AUTH_KEY',  '!}}q#]LksD[$G~oMo4SqaK-k7i^5K]-K.2=x tv:Ihi|Y/_2.Inj)jiB`TW,v7Tv');
-define('LOGGED_IN_KEY',    'Uh~,~#rMb+~M3R]f{8d|(Zez+h###m<o,XizPY[~FWc1|g1D__o~A#>kLSB)FDAs');
-define('NONCE_KEY',        'te1YTuXQH.XeL5pzl>1D4rAyZ0h(b:[u{A+|^-|uZ&vhl&ddkxADS*M3-RoWij82');
-define('AUTH_SALT',        '0+^YG|]tZZl26&16?bj.;n@L=MK}G>P-YExD9|B^6-f9V.W{eB|K3|o_T8Qv7c?9');
-define('SECURE_AUTH_SALT', 'G2XLyLeU}Q?BARB!K.!Op&hj)Mom{n3P$>nBaac&>(81wn%Zu9xI-N]5P[CNI/r_');
-define('LOGGED_IN_SALT',   'Soh>ex1d#/#?PT0DJ-uh2Csva5;n97IuNJgKQS;K-B_q8;L(ov3jAfb`:-!a 3>k');
-define('NONCE_SALT',       'dH,-}o~,9~kNate P9DbtB6gwbkIL4#EYWw=LIYQ}Z;D*KvjAouFeIQfB-vSG+.q');
+define( 'AUTH_KEY',         'put your unique phrase here' );
+define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
+define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
+define( 'NONCE_KEY',        'put your unique phrase here' );
+define( 'AUTH_SALT',        'put your unique phrase here' );
+define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
+define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
+define( 'NONCE_SALT',       'put your unique phrase here' );
 
 /**#@-*/
 
@@ -81,8 +81,8 @@ define( 'WP_DEBUG', false );
 
 /* That's all, stop editing! Happy publishing. */
 
-define( 'WP_HOME', 'https://ergophone.fr' );
-define( 'WP_SITEURL', 'https://ergophone.fr' );
+define( 'WP_HOME', 'https://drop.romain.ninja' );
+define( 'WP_SITEURL', 'https://drop.romain.ninja' );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
