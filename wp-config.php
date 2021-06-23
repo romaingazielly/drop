@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
+define( 'DB_NAME', 'ergophone' );
 
 /** MySQL database username */
-define( 'DB_USER', 'wordpress' );
+define( 'DB_USER', 'root' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'wordpress' );
+define( 'DB_PASSWORD', 'clashofclan' );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', 'db:3306' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -46,14 +46,15 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'V:bPdts|x@~|;NAgS*|f rq%z]4+4.oS+?>mj3)>%5BOXB;uZv#BtamWlg2@j2O@');
-define('SECURE_AUTH_KEY',  '~2UkxOcW&Rh^vI<{o@=}W}![d~^7n3&51,xs;DpsNJ>Z.izn.{${z5SFE8bBq85O');
-define('LOGGED_IN_KEY',    '(`lVEwbI6{H.b{!M5DPR3C%i*z%lz,Ty%=QP%?EyGHV5ka}+bU;A[H@.[*<*i<|F');
-define('NONCE_KEY',        'yd{Ke$kQ2Y)fvy2z2mUB}./km-x{qOk?[HXwz b5biz-]?FnUu=jA-IVJD^U`Z_b');
-define('AUTH_SALT',        '$vv~.hDZ@QEj(;En.P7:+f|QZ[(q$&? h<]@q<yoZ@V]P-}m%.x MK!: s >]F=i');
-define('SECURE_AUTH_SALT', '-~y$+KDosdDOCeA-P$7sU^~PwyIY./]MP!z|+^4p=ur^ F-+[zTa,9[pN^HOL%GI');
-define('LOGGED_IN_SALT',   'HR9|]^)hz~4rmA/EXADns?$_<.l82Prxecr2NOM@{vB6VGb:GTy2>In!kn4]apX0');
-define('NONCE_SALT',       '(Ds0Sk|TND9U9P&To+BH$-qq>+ao<:HhGW^y&|Vt;JBcAr@y{O1$i6m/C;4np.xq');
+define('AUTH_KEY',         '8k|-!k(z+}by|Y)$Y_D4*;8SK TRD_SP8:[g}ZtxhsE_%+acCWlKOrL4/!(#tmr]');
+define('SECURE_AUTH_KEY',  '!}}q#]LksD[$G~oMo4SqaK-k7i^5K]-K.2=x tv:Ihi|Y/_2.Inj)jiB`TW,v7Tv');
+define('LOGGED_IN_KEY',    'Uh~,~#rMb+~M3R]f{8d|(Zez+h###m<o,XizPY[~FWc1|g1D__o~A#>kLSB)FDAs');
+define('NONCE_KEY',        'te1YTuXQH.XeL5pzl>1D4rAyZ0h(b:[u{A+|^-|uZ&vhl&ddkxADS*M3-RoWij82');
+define('AUTH_SALT',        '0+^YG|]tZZl26&16?bj.;n@L=MK}G>P-YExD9|B^6-f9V.W{eB|K3|o_T8Qv7c?9');
+define('SECURE_AUTH_SALT', 'G2XLyLeU}Q?BARB!K.!Op&hj)Mom{n3P$>nBaac&>(81wn%Zu9xI-N]5P[CNI/r_');
+define('LOGGED_IN_SALT',   'Soh>ex1d#/#?PT0DJ-uh2Csva5;n97IuNJgKQS;K-B_q8;L(ov3jAfb`:-!a 3>k');
+define('NONCE_SALT',       'dH,-}o~,9~kNate P9DbtB6gwbkIL4#EYWw=LIYQ}Z;D*KvjAouFeIQfB-vSG+.q');
+
 /**#@-*/
 
 /**
@@ -80,9 +81,8 @@ define( 'WP_DEBUG', false );
 
 /* That's all, stop editing! Happy publishing. */
 
-define( 'WP_HOME', 'https://drop.romain.ninja' );
-define( 'WP_SITEURL', 'https://drop.romain.ninja' );
-
+define( 'WP_HOME', 'http://localhost' );
+define( 'WP_SITEURL', 'http://localhost' );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
