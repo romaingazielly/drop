@@ -81,8 +81,8 @@ define( 'WP_DEBUG', false );
 
 /* That's all, stop editing! Happy publishing. */
 
-define( 'WP_HOME', 'http://localhost' );
-define( 'WP_SITEURL', 'http://localhost' );
+define( 'WP_HOME', 'https://ergophone.fr' );
+define( 'WP_SITEURL', 'https://ergophone.fr' );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
