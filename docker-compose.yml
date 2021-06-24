@@ -19,7 +19,7 @@ services:
       - db
     image: wordpress:latest
     volumes:
-      - wordpress_data:/var/www/html/wp-content
+      - ./wp-content:/var/www/html/wp-content
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
       - ./wp-config.php:/var/www/html/wp-config.php
     ports:
@@ -33,4 +33,3 @@ services:
 
 volumes:
   db_data:
-  wordpress_data:
