@@ -1,0 +1,137 @@
+<wpml-config>
+  <custom-types>
+    <custom-type translate="1">staticblocks</custom-type>
+    <custom-type translate="1">etheme_portfolio</custom-type>
+    <custom-type translate="1">testimonials</custom-type>
+  </custom-types>
+  <custom-fields>
+    <custom-field action="translate" style="line" label="Custom tab title">_et_custom_tab1_title</custom-field>
+    <custom-field action="translate" style="textarea" label="Custom tab">_et_custom_tab1</custom-field>
+    <custom-field action="copy-once" style="line" label="Sidebar position">_et_sidebar_state</custom-field>
+    <custom-field action="copy-once" style="line" label="Sidebar width">_et_sidebar_width</custom-field>
+    <custom-field action="copy-once" style="line" label="Breadcrumbs Style">_et_breadcrumb_type</custom-field>
+    <custom-field action="copy-once" style="line" label="Breadcrumbs Effect">_et_breadcrumb_effect</custom-field>
+    <custom-field action="copy-once" style="line" label="Fixed footer">_et_footer_fixed</custom-field>
+    <custom-field action="copy-once" style="line" label="Disable copyrights">_et_remove_copyrights</custom-field>
+    <custom-field action="copy-once" style="line" label="Custom background image">_et_bg_image</custom-field>
+    <custom-field action="copy-once" style="line" label="Custom background color">_et_bg_color</custom-field>
+  </custom-fields>
+  <taxonomies>
+    <taxonomy translate="1">portfolio_category</taxonomy>
+    <taxonomy translate="1">testimonial-category</taxonomy>
+  </taxonomies>
+  <admin-texts>
+    <key name="theme_mods_xstore">
+      <key name="404_text"/>
+      <key name="product_bage_banner"/>
+      <key name="empty_cart_content"/>
+      <key name="custom_tab_title"/>
+      <key name="custom_tab"/>
+      <key name="promo-link-text"/>
+      <key name="pp_content"/>
+      <key name="header_custom_block"/>
+      <key name="all_departments_text"/>
+      <key name="sign_in_text"/>
+      <key name="sale_icon_text"/>
+      <key name="cart_popup_banner"/>
+      
+      <key name="all_departments_text"/>
+      <key name="mobile_menu_text"/>
+      <key name="mobile_menu_tab_2_text"/>
+      <key name="cart_footer_content_et-desktop"/>
+      <key name="booster_progress_content_et-desktop"/>
+      <key name="booster_progress_content_success_et-desktop"/>
+      <key name="account_text"/>
+      <key name="account_logged_in_text"/>
+      <key name="search_all_categories_text_et-desktop"/>
+      <key name="search_placeholder_et-desktop"/>
+      <key name="contacts_package_et-desktop"/>
+      <key name="newsletter_label_et-desktop"/>
+      <key name="newsletter_title_et-desktop"/>
+      <key name="newsletter_content_et-desktop"/>
+      <key name="button_text_et-desktop"/>
+      <key name="promo_text_package"/>
+      <key name="html_block1"/>
+      <key name="html_block2"/>
+      <key name="html_block3"/>
+    </key>
+  </admin-texts>
+  <shortcodes>
+    <shortcode>
+      <tag>et_tab</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>banner</tag>
+      <attributes>
+          <attribute>title</attribute>
+          <attribute>subtitle</attribute>
+          <attribute type="link" encoding="vc_link">link</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>title</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+          <attribute encoding="allow_html_tags">subtitle</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>icon_box</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>team_member</tag>
+    </shortcode>
+    <shortcode>
+      <tag>twitter</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>instagram</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+          <attribute encoding="allow_html_tags">link</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>etheme_categories</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>etheme_products</tag>
+      <attributes>
+          <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>et_the_look</tag>
+    </shortcode>
+    <shortcode>
+      <tag>menu</tag>
+      <attributes>
+        <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>et_menu_list</tag>
+      <attributes>
+        <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+    <shortcode>
+      <tag>et_menu_list_item</tag>
+      <attributes>
+        <attribute encoding="allow_html_tags">title</attribute>
+      </attributes>
+    </shortcode>
+  </shortcodes>
+</wpml-config>

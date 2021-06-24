@@ -5,6 +5,7 @@ function ux_logo( $atts, $content = null ){
       'class' => '',
       'visibility' => '',
       'img' => '',
+      'image_size' => 'original',
       'padding' => '15px',
       'title' => '',
       'hover' => '',
@@ -15,9 +16,11 @@ function ux_logo( $atts, $content = null ){
     ), $atts ) );
 
     $classes = array('ux-logo', 'has-hover', 'align-middle', 'ux_logo', 'inline-block');
+	$org_img = '';
+
     if ( $class ) $classes[] = $class;
     if ( $visibility ) $classes[] = $visibility;
-    
+
   	$height    = intval( $height );
   	$width     = 'auto';
   	$link_atts = array(
@@ -30,20 +33,23 @@ function ux_logo( $atts, $content = null ){
       $width = ($height / 84) * 400 + (intval($padding)*2).'px';
     }
 
-    if ($img && !is_numeric($img)) {
-      $org_img = $img;
-    } else if($img) {
-      $img = wp_get_attachment_image_src($img, 'small');
-      $org_img = $img[0];
-      $org_height = $img[2];
-      // Check if width and height is set, because svg images has no size.
-      if ( $img[1] > 0 && $img[2] > 0 ) {
-        $width = $img[1];
-        $width = (intval($height) / intval($org_height)) * intval($width) + (intval($padding)*2).'px';
-      } else {
-        $width = 'auto';
-      }
-    }
+	if ( $img && ! is_numeric( $img ) ) {
+		$org_img = $img;
+	} elseif ( $img ) {
+		$img_src = wp_get_attachment_image_src( $img, $image_size );
+
+		if ( $img_src ) {
+			$org_img    = $img_src[0];
+			$org_height = $img_src[2];
+			// Check if width and height is set, because svg images has no size.
+			if ( $img_src[1] > 0 && $img_src[2] > 0 ) {
+				$width = $img_src[1];
+				$width = ( intval( $height ) / intval( $org_height ) ) * intval( $width ) + ( intval( $padding ) * 2 ) . 'px';
+			} else {
+				$width = 'auto';
+			}
+		}
+	}
 
     // Set inner tag
     $inner_tag = $link ? 'a' : 'div';

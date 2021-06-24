@@ -179,19 +179,19 @@ function ux_pages($atts) {
                   <div class="box-image" <?php echo get_shortcode_inline_css($css_args_img); ?>>
                       <div class="<?php echo implode(' ', $classes_image); ?>" <?php echo get_shortcode_inline_css($css_image_height); ?>>
                       <?php $img_id = get_post_thumbnail_id($page->ID); echo wp_get_attachment_image($img_id, $image_size); ?>
-                      </div><!-- image -->
+                      </div>
                       <?php if($image_overlay){ ?><div class="overlay" style="background-color: <?php echo $image_overlay;?>"></div><?php } ?>
                       <?php if($style == 'shade'){ ?><div class="shade"></div><?php } ?>
-                  </div><!-- box-image -->
+                  </div>
                   <div class="<?php echo implode(' ', $classes_text); ?>" <?php echo get_shortcode_inline_css($css_args); ?>>
                         <div class="box-text-inner">
                             <p><?php echo $page->post_title; ?></p>
-                        </div><!-- box-text-inner -->
-                  </div><!-- box-text -->
-              </div><!-- .image-box .box -->
+                        </div>
+                  </div>
+              </div>
             </a>
-            </div><!-- .col-inner -->
-          </div><!-- .col -->
+            </div>
+          </div>
          <?php
     } // Loop
     echo '</div>';

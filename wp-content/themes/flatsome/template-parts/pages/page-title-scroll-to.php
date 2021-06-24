@@ -11,5 +11,5 @@
 	 		Scroll To this
 	 	</div>
 
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

@@ -1,13 +1,12 @@
-<?php if(is_woocommerce_activated()){ ?>
-<?php global $woocommerce;
-  
+<?php if ( is_woocommerce_activated() && flatsome_is_wc_cart_available() ) { ?>
+<?php
   // Get Cart replacement for catalog_mode
   if(flatsome_option('catalog_mode')) { get_template_part('template-parts/header/partials/element','cart-replace'); return;}
   $cart_style = flatsome_option('header_cart_style');
   $custom_cart_content = flatsome_option('html_cart_header');
   $icon_style = flatsome_option('cart_icon_style');
   $icon = flatsome_option('cart_icon');
-  $disable_mini_cart = ( is_cart() || is_checkout() ) && apply_filters( 'flatsome_disable_mini_cart', true );
+  $disable_mini_cart = apply_filters( 'flatsome_disable_mini_cart', is_cart() || is_checkout() );
   if ( $disable_mini_cart ) {
     $cart_style = 'link';
   }
@@ -23,25 +22,25 @@
 
 <?php
 if(flatsome_option('custom_cart_icon')) { ?>
-  <span class="image-icon header-cart-icon" data-icon-label="<?php echo $woocommerce->cart->cart_contents_count; ?>">
-    <img class="cart-img-icon" alt="<?php _e('Cart', 'woocommerce'); ?>" src="<?php echo do_shortcode(flatsome_option('custom_cart_icon')); ?>"/> 
-  </span><!-- .cart-img-inner -->
-<?php } 
+  <span class="image-icon header-cart-icon" data-icon-label="<?php echo WC()->cart->cart_contents_count; ?>">
+    <img class="cart-img-icon" alt="<?php _e('Cart', 'woocommerce'); ?>" src="<?php echo do_shortcode(flatsome_option('custom_cart_icon')); ?>"/>
+  </span>
+<?php }
 else { ?>
   <?php if(!$icon_style) { ?>
   <span class="cart-icon image-icon">
-    <strong><?php echo $woocommerce->cart->cart_contents_count; ?></strong>
-  </span> 
+    <strong><?php echo WC()->cart->cart_contents_count; ?></strong>
+  </span>
   <?php } else { ?>
   <i class="icon-shopping-<?php echo $icon;?>"
-    data-icon-label="<?php echo $woocommerce->cart->cart_contents_count; ?>">
+    data-icon-label="<?php echo WC()->cart->cart_contents_count; ?>">
   </i>
   <?php } ?>
 <?php }  ?>
 </a>
 <?php if($icon_style && $icon_style !== 'plain') { ?></div><?php } ?>
 
-<?php if($cart_style !== 'off-canvas') { ?>
+<?php if ( $cart_style !== 'off-canvas' && $cart_style !== 'link' ) { ?>
 
   <!-- Cart Sidebar Popup -->
   <div id="cart-popup" class="mfp-hide widget_shopping_cart">

@@ -25,7 +25,7 @@ if ( ! function_exists( 'flatsome_woocommerce_add_notice' ) ) {
 	 */
 	function flatsome_woocommerce_add_notice() {
 		if ( is_woocommerce_activated() && ! is_cart() ) {
-			wc_print_notices();
+			if ( function_exists( 'wc_print_notices' ) ) wc_print_notices();
 		}
 	}
 }
@@ -83,25 +83,6 @@ function flatsome_woocommerce_scripts_styles() {
 add_action( 'wp_enqueue_scripts', 'flatsome_woocommerce_scripts_styles', 98 );
 
 
-// Set Lazy load Image height for Product Images
-if( get_theme_mod( 'lazy_load_images' ) ) {
-	function flatsome_lazy_load_product_image_size() {
-		if ( fl_woocommerce_version_check( '3.3.0' ) ) {
-			$image_sizes  = wc_get_image_size( 'thumbnail' );
-			$image_width  = $image_sizes['width'];
-			$image_height = $image_sizes['height'] !== '' ? $image_sizes['height'] : $image_sizes['width'];
-		} else {
-			$image_sizes  = get_option( 'shop_catalog_image_size' );
-			$image_width  = $image_sizes['width'];
-			$image_height = $image_sizes['height'];
-		}
-		$new_height = 100 / ( $image_width / $image_height ) . '%';
-		echo '<style>.product-gallery img.lazy-load, .product-small img.lazy-load, .product-small img[data-lazy-srcset]:not(.lazyloaded){ padding-top: ' . $new_height . ';}</style>';
-	}
-	add_filter( 'wp_head', 'flatsome_lazy_load_product_image_size' );
-}
-
-
 // Add Shop  Widgets
 function flatsome_shop_widgets_init() {
 
@@ -136,7 +117,7 @@ function flatsome_woocommerce_breadcrumbs() {
 
     return array(
         'delimiter'   => '&#47;',
-        'wrap_before' => '<nav class="woocommerce-breadcrumb breadcrumbs">',
+        'wrap_before' => '<nav class="woocommerce-breadcrumb breadcrumbs '.get_theme_mod('breadcrumb_case', 'uppercase').'">',
         'wrap_after'  => '</nav>',
         'before'      => '',
         'after'       => '',
@@ -155,9 +136,8 @@ add_action( 'flatsome_breadcrumb' , 'woocommerce_breadcrumb', 20 );
 
 /* Update cart price */
 function flatsome_header_add_to_cart_fragment( $fragments ) {
-  global $woocommerce;
   ob_start();
-  ?> <span class="cart-price"><?php echo $woocommerce->cart->get_cart_subtotal(); ?></span><?php
+  ?> <span class="cart-price"><?php echo WC()->cart->get_cart_subtotal(); ?></span><?php
   $fragments['.cart-price'] = ob_get_clean();
 
   return $fragments;
@@ -174,11 +154,10 @@ if ( ! function_exists( 'flatsome_header_add_to_cart_fragment_count' ) ) {
 	 * @return mixed
 	 */
 	function flatsome_header_add_to_cart_fragment_count( $fragments ) {
-		global $woocommerce;
 		ob_start();
 		?>
 		<span class="cart-icon image-icon">
-			<strong><?php echo $woocommerce->cart->cart_contents_count; ?></strong>
+			<strong><?php echo WC()->cart->cart_contents_count; ?></strong>
 		</span>
 		<?php
 		$fragments['.header .cart-icon'] = ob_get_clean();
@@ -202,11 +181,10 @@ if ( ! function_exists( 'flatsome_header_add_to_cart_fragment_count_label' ) ) {
 			return $fragments;
 		}
 
-		global $woocommerce;
 		$icon = get_theme_mod( 'cart_icon', 'basket' );
 		ob_start();
 		?>
-		<i class="icon-shopping-<?php echo $icon; ?>" data-icon-label="<?php echo $woocommerce->cart->cart_contents_count; ?>">
+		<i class="icon-shopping-<?php echo $icon; ?>" data-icon-label="<?php echo WC()->cart->cart_contents_count; ?>">
 		<?php
 		$fragments[ 'i.icon-shopping-' . $icon ] = ob_get_clean();
 
@@ -229,10 +207,9 @@ if ( ! function_exists( 'flatsome_header_add_to_cart_custom_icon_fragment_count_
 			return $fragments;
 		}
 
-		global $woocommerce;
 		ob_start();
 		?>
-		<span class="image-icon header-cart-icon" data-icon-label="<?php echo $woocommerce->cart->cart_contents_count; ?>">
+		<span class="image-icon header-cart-icon" data-icon-label="<?php echo WC()->cart->cart_contents_count; ?>">
 			<img class="cart-img-icon" alt="<?php _e( 'Cart', 'woocommerce' ); ?>" src="<?php echo do_shortcode( $custom_cart_icon ); ?>"/>
 		</span>
 		<?php
@@ -277,13 +254,31 @@ function flatsome_pages_in_search_results(){
 
       wp_reset_query();
 
-      if(!empty($posts) || !empty($pages)){
-          $list_type = get_theme_mod( 'search_result_style', 'slider' );
-          if(!empty($posts)) echo '<hr/><h4 class="uppercase">'.__('Posts found','flatsome').'</h4>'.do_shortcode('[blog_posts columns="3" columns__md="3" columns__sm="2" type="'.$list_type.'" image_height="16-9" ids="'.implode(',',$posts).'"]');
-          if(!empty($pages)) echo '<hr/><h4 class="uppercase">'.__('Pages found','flatsome').'</h4>'.do_shortcode('[ux_pages columns="3" columns__md="3" columns__sm="2" type="'.$list_type.'" image_height="16-9" ids="'.implode(',',$pages).'"]');
-      }
+		if ( ! empty( $posts ) ) {
+			echo '<hr/><h4 class="uppercase">' . esc_html__( 'Posts found', 'flatsome' ) . '</h4>';
+			echo flatsome_apply_shortcode( 'blog_posts', array(
+				'columns'      => '3',
+				'columns__md'  => '3',
+				'columns__sm'  => '2',
+				'type'         => get_theme_mod( 'search_result_style', 'slider' ),
+				'image_height' => '56.25%',
+				'show_date'    => get_theme_mod( 'blog_badge', 1 ) ? 'true' : 'false',
+				'ids'          => implode( ',', $posts ),
+			) );
+		}
 
-    ?>
+		if ( ! empty( $pages ) ) {
+			echo '<hr/><h4 class="uppercase">' . esc_html__( 'Pages found', 'flatsome' ) . '</h4>';
+			echo flatsome_apply_shortcode( 'ux_pages', array(
+				'columns'      => '3',
+				'columns__md'  => '3',
+				'columns__sm'  => '2',
+				'type'         => get_theme_mod( 'search_result_style', 'slider' ),
+				'image_height' => '56.25%',
+				'ids'          => implode( ',', $pages ),
+			) );
+		}
+		?>
     <?php endif; ?>
 
     <?php
@@ -304,12 +299,13 @@ add_action('woocommerce_after_main_content','flatsome_pages_in_search_results', 
 function flatsome_presentage_bubble( $product ) {
 	$post_id = $product->get_id();
 
-	if ( $product->is_type( 'simple' ) || $product->is_type( 'external' ) ) {
+	if ( $product->is_type( 'simple' ) || $product->is_type( 'external' ) || $product->is_type( 'variation' ) ) {
 		$regular_price  = $product->get_regular_price();
 		$sale_price     = $product->get_sale_price();
 		$bubble_content = round( ( ( floatval( $regular_price ) - floatval( $sale_price ) ) / floatval( $regular_price ) ) * 100 );
 	} elseif ( $product->is_type( 'variable' ) ) {
-		if ( $bubble_content = flatsome_percentage_get_cache( $post_id ) ) {
+		$bubble_content = flatsome_percentage_get_cache( $post_id );
+		if ( $bubble_content && apply_filters( 'flatsome_sale_bubble_percentage_cache_enabled', true ) ) {
 			return flatsome_percentage_format( $bubble_content );
 		}
 
@@ -333,7 +329,9 @@ function flatsome_presentage_bubble( $product ) {
 		$bubble_content = sprintf( __( '%s', 'woocommerce' ), $maximumper );
 
 		// Cache percentage for variable products to reduce database queries.
-		flatsome_percentage_set_cache( $post_id, $bubble_content );
+		if ( apply_filters( 'flatsome_sale_bubble_percentage_cache_enabled', true ) ) {
+			flatsome_percentage_set_cache( $post_id, $bubble_content );
+		}
 	} else {
 		// Set default and return if the product type doesn't meet specification.
 		$bubble_content = __( 'Sale!', 'woocommerce' );
@@ -345,17 +343,11 @@ function flatsome_presentage_bubble( $product ) {
 }
 
 function flatsome_percentage_get_cache( $post_id ) {
-	if ( fl_woocommerce_version_check( '3.0.0' ) ) {
-		return get_post_meta( $post_id, '_flatsome_product_percentage', true );
-	}
-
-	return false;
+	return get_post_meta( $post_id, '_flatsome_product_percentage', true );
 }
 
 function flatsome_percentage_set_cache( $post_id, $bubble_content ) {
-	if ( fl_woocommerce_version_check( '3.0.0' ) ) {
-		update_post_meta( $post_id, '_flatsome_product_percentage', $bubble_content );
-	}
+	update_post_meta( $post_id, '_flatsome_product_percentage', $bubble_content );
 }
 
 // Process custom formatting. Keep mod value double check
@@ -370,7 +362,6 @@ function flatsome_percentage_format( $value ) {
 // Clear cached percentage whenever a product or variation is saved.
 function flatsome_percentage_clear( $object ) {
 	if ( ! get_theme_mod( 'sale_bubble_percentage' ) ) return;
-	if ( ! fl_woocommerce_version_check( '3.0.0' ) ) return;
 
 	$post_id = 'variation' === $object->get_type()
 		? $object->get_parent_id()
@@ -382,7 +373,7 @@ add_action( 'woocommerce_before_product_object_save', 'flatsome_percentage_clear
 
 // Clear all cached percentages when disabling bubble percentage.
 function flatsome_percentage_clear_all( $value, $old_value ) {
-	if ( ! $value && $old_value && fl_woocommerce_version_check( '3.0.0' ) ) {
+	if ( ! $value && $old_value ) {
 		delete_metadata( 'post', null, '_flatsome_product_percentage', '', true );
 	}
 
@@ -396,7 +387,10 @@ function flatsome_account_login_lightbox(){
   if ( !is_user_logged_in() && get_theme_mod('account_login_style','lightbox') == 'lightbox' && !is_checkout() && !is_account_page() ) {
     $is_facebook_login = is_nextend_facebook_login();
     $is_google_login = is_nextend_google_login();
-    wp_enqueue_script( 'wc-password-strength-meter' );
+
+	if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
+		wp_enqueue_script( 'wc-password-strength-meter' );
+	}
 
     ?>
     <div id="login-form-popup" class="lightbox-content mfp-hide">
@@ -461,3 +455,116 @@ function flatsome_move_store_notice() {
     }
 }
 add_action( 'wp_loaded', 'flatsome_move_store_notice' );
+
+/**
+ * Filter WC Product shortcode attributes,
+ *
+ * @param array $attrs Attributes.
+ *
+ * @return array Attributes.
+ */
+function flatsome_filter_shortcode_atts_products( $attrs ) {
+	if ( $attrs['limit'] == '-1' ) {
+		$attrs['limit'] = '12';
+	}
+
+	if ( $attrs['columns'] == '' ) {
+		$attrs['columns'] = '4';
+	}
+
+	return $attrs;
+}
+
+add_filter( 'shortcode_atts_products', 'flatsome_filter_shortcode_atts_products' );
+
+/**
+ * Flatsome Payment Icons List.
+ *
+ * Returns a list of Flatsome Payment Icons.
+ *
+ * @return array Payment Icons list.
+ */
+function flatsome_get_payment_icons_list() {
+	return apply_filters( 'flatsome_payment_icons', array(
+		'amazon'          => __( 'Amazon', 'flatsome-admin' ),
+		'americanexpress' => __( 'American Express', 'flatsome-admin' ),
+		'applepay'        => __( 'Apple Pay', 'flatsome-admin' ),
+		'afterpay'        => __( 'AfterPay', 'flatsome-admin' ),
+		'afterpay-2'      => __( 'AfterPay 2', 'flatsome-admin' ),
+		'alipay'          => __( 'Alipay', 'flatsome-admin' ),
+		'atm'             => __( 'Atm', 'flatsome-admin' ),
+		'bancontact'      => __( 'Bancontact', 'flatsome-admin' ),
+		'bankomat'        => __( 'Bankomat', 'flatsome-admin' ),
+		'banktransfer'    => __( 'Bank Transfer', 'flatsome-admin' ),
+		'belfius'         => __( 'Belfius', 'flatsome-admin' ),
+		'bitcoin'         => __( 'BitCoin', 'flatsome-admin' ),
+		'braintree'       => __( 'Braintree', 'flatsome-admin' ),
+		'cartasi'         => __( 'CartaSi', 'flatsome-admin' ),
+		'cashcloud'       => __( 'CashCloud', 'flatsome-admin' ),
+		'cashondelivery'  => __( 'Cash On Delivery', 'flatsome-admin' ),
+		'cashonpickup'    => __( 'Cash on Pickup', 'flatsome-admin' ),
+		'cbc'             => __( 'CBC', 'flatsome-admin' ),
+		'cirrus'          => __( 'Cirrus', 'flatsome-admin' ),
+		'clickandbuy'     => __( 'Click and Buy', 'flatsome-admin' ),
+		'creditcard'      => __( 'Credit Card', 'flatsome-admin' ),
+		'creditcard2'     => __( 'Credit Card 2', 'flatsome-admin' ),
+		'dancard'         => __( 'DanKort', 'flatsome-admin' ),
+		'dinnersclub'     => __( 'Dinners Club', 'flatsome-admin' ),
+		'discover'        => __( 'Discover', 'flatsome-admin' ),
+		'elo'             => __( 'Elo', 'flatsome-admin' ),
+		'eps'             => __( 'Eps', 'flatsome-admin' ),
+		'facture'         => __( 'Facture', 'flatsome-admin' ),
+		'fattura'         => __( 'Fattura', 'flatsome-admin' ),
+		'flattr'          => __( 'Flattr', 'flatsome-admin' ),
+		'giropay'         => __( 'GiroPay', 'flatsome-admin' ),
+		'googlepay'       => __( 'Google Pay', 'flatsome-admin' ),
+		'googlewallet'    => __( 'Google Wallet', 'flatsome-admin' ), // Deprecated, changed to Google Pay.
+		'hiper'           => __( 'Hiper', 'flatsome-admin' ),
+		'ideal'           => __( 'IDeal', 'flatsome-admin' ),
+		'interac'         => __( 'Interac', 'flatsome-admin' ),
+		'invoice'         => __( 'Invoice', 'flatsome-admin' ),
+		'jcb'             => __( 'JCB', 'flatsome-admin' ),
+		'kbc'             => __( 'KBC', 'flatsome-admin' ),
+		'klarna'          => __( 'Klarna', 'flatsome-admin' ),
+		'maestro'         => __( 'Maestro', 'flatsome-admin' ),
+		'mastercard'      => __( 'MasterCard', 'flatsome-admin' ),
+		'mastercard-2'    => __( 'MasterCard 2', 'flatsome-admin' ),
+		'mir'             => __( 'Mir', 'flatsome-admin' ),
+		'moip'            => __( 'Moip', 'flatsome-admin' ),
+		'mollie'          => __( 'Mollie', 'flatsome-admin' ),
+		'ogone'           => __( 'Ogone', 'flatsome-admin' ),
+		'paybox'          => __( 'Paybox', 'flatsome-admin' ),
+		'paylife'         => __( 'Paylife', 'flatsome-admin' ),
+		'paymill'         => __( 'PayMill', 'flatsome-admin' ),
+		'paypal'          => __( 'PayPal', 'flatsome-admin' ),
+		'paypal-2'        => __( 'PayPal 2', 'flatsome-admin' ),
+		'paysafe'         => __( 'PaySafe', 'flatsome-admin' ),
+		'payshop'         => __( 'PayShop', 'flatsome-admin' ),
+		'paytm'           => __( 'Paytm', 'flatsome-admin' ),
+		'payu'            => __( 'PayU', 'flatsome-admin' ),
+		'postepay'        => __( 'Postepay', 'flatsome-admin' ),
+		'quick'           => __( 'Quick', 'flatsome-admin' ),
+		'rechung'         => __( 'Rechung', 'flatsome-admin' ),
+		'ripple'          => __( 'Ripple', 'flatsome-admin' ),
+		'rupay'           => __( 'RuPay', 'flatsome-admin' ),
+		'sage'            => __( 'Sage', 'flatsome-admin' ),
+		'sepa'            => __( 'Sepa', 'flatsome-admin' ),
+		'six'             => __( 'Six', 'flatsome-admin' ),
+		'skrill'          => __( 'Skrill', 'flatsome-admin' ),
+		'sofort'          => __( 'Sofort', 'flatsome-admin' ),
+		'square'          => __( 'Square', 'flatsome-admin' ),
+		'stripe'          => __( 'Stripe', 'flatsome-admin' ),
+		'swish'           => __( 'Swish (SE)', 'flatsome-admin' ),
+		'truste'          => __( 'Truste', 'flatsome-admin' ),
+		'twint'           => __( 'Twint', 'flatsome-admin' ),
+		'unionpay'        => __( 'UnionPay', 'flatsome-admin' ),
+		'venmo'           => __( 'Venmo', 'flatsome-admin' ),
+		'verisign'        => __( 'VeriSign', 'flatsome-admin' ),
+		'vipps'           => __( 'Vipps', 'flatsome-admin' ),
+		'visa'            => __( 'Visa', 'flatsome-admin' ),
+		'visa1'           => __( 'Visa 2', 'flatsome-admin' ),
+		'visaelectron'    => __( 'Visa Electron', 'flatsome-admin' ),
+		'westernunion'    => __( 'Western Union', 'flatsome-admin' ),
+		'wirecard'        => __( 'Wirecard', 'flatsome-admin' ),
+	) );
+}

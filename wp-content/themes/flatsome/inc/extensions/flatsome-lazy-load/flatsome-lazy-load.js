@@ -1,45 +1,89 @@
-Flatsome.behavior('lazy-load-images', {
-  attach: function (context) {
-    jQuery('.lazy-load', context).each(function (index, element) {
-      var $element = jQuery(element);
-      var waypoint = $element.waypoint(function (direction) {
-          if($element.hasClass('lazy-load-active')) return;
-          var src = $element.data('src');
-          var srcset = $element.data('srcset');
-          if(src) $element.attr('src', src);
-          if(srcset) $element.attr('srcset', srcset);
-          $element.imagesLoaded( function() {
-            $element.addClass('lazy-load-active').removeClass('lazy-load');
-          });
-          //this.destroy();
-      }, { offset: '140%' });
-    });
+/* global objectFitImages */
+;(function () {
+  function createObserver (handler) {
+    return new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        handler(entries[i])
+      }
+    }, {
+      rootMargin: '0px',
+      threshold: 0.1
+    })
   }
-});
 
-Flatsome.behavior('lazy-load-sliders', {
-  attach: function (context) {
-     jQuery('.slider', context).each(function (index, element) {
-        var $element = jQuery(element);
-        var waypoint = $element.waypoint(function (direction) {
-          if($element.hasClass('slider-lazy-load-active')) return;
-          $element.imagesLoaded( function() {
-             if($element.hasClass('flickity-enabled')) $element.flickity('resize');
-             $element.addClass('slider-lazy-load-active');
-          });
-         }, { offset: '100%' });
-      });
-  }
-});
+  Flatsome.behavior('lazy-load-images', {
+    attach: function (context) {
+      var observer = createObserver(function (entry) {
+        if (entry.intersectionRatio > 0) {
+          observer.unobserve(entry.target)
 
-Flatsome.behavior('lazy-load-packery', {
-  attach: function (context) {
-       jQuery('.has-packery .lazy-load', context).waypoint(function (direction) {
-          var $element = jQuery(this.element);
-          $element.imagesLoaded( function() {
-              jQuery('.has-packery').packery('layout');
-          });
-          //this.destroy();
-      }, { offset: '100%' });
-  }
-});
+          var $el = jQuery(entry.target)
+          var src = $el.data('src')
+          var srcset = $el.data('srcset')
+
+          if ($el.hasClass('lazy-load-active')) return
+          else $el.addClass('lazy-load-active')
+
+          if (src) $el.attr('src', src)
+          if (srcset) $el.attr('srcset', srcset)
+
+          $el.imagesLoaded(function () {
+            $el.removeClass('lazy-load')
+            if (typeof objectFitImages !== 'undefined') {
+              objectFitImages($el)
+            }
+          })
+        }
+      })
+
+      jQuery('.lazy-load', context).each(function (i, el) {
+        observer.observe(el)
+      })
+    }
+  })
+
+  Flatsome.behavior('lazy-load-sliders', {
+    attach: function (context) {
+      var observer = createObserver(function (entry) {
+        if (entry.intersectionRatio > 0) {
+          observer.unobserve(entry.target)
+
+          var $el = jQuery(entry.target)
+
+          if ($el.hasClass('slider-lazy-load-active')) return
+          else $el.addClass('slider-lazy-load-active')
+
+          $el.imagesLoaded(function () {
+            if ($el.hasClass('flickity-enabled')) {
+              $el.flickity('resize')
+            }
+          })
+        }
+      })
+
+      jQuery('.slider', context).each(function (i, el) {
+        observer.observe(el)
+      })
+    }
+  })
+
+  Flatsome.behavior('lazy-load-packery', {
+    attach: function (context) {
+      var observer = createObserver(function (entry) {
+        if (entry.intersectionRatio > 0) {
+          observer.unobserve(entry.target)
+
+          var $el = jQuery(entry.target)
+
+          $el.imagesLoaded(function () {
+            jQuery('.has-packery').packery('layout') // why global selector?
+          })
+        }
+      })
+
+      jQuery('.has-packery .lazy-load', context).each(function (i, el) {
+        observer.observe(el)
+      })
+    }
+  })
+})()

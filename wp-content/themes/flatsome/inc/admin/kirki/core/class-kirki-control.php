@@ -4,9 +4,9 @@
  *
  * @package     Kirki
  * @category    Core
- * @author      Aristeides Stathopoulos
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
+ * @author      Ari Stathopoulos (@aristath)
+ * @copyright   Copyright (c) 2020, David Vongries
+ * @license     https://opensource.org/licenses/MIT
  */
 
 /**
@@ -48,6 +48,7 @@ class Kirki_Control {
 
 		// Set the control types.
 		$this->set_control_types();
+
 		// Add the control.
 		$this->add_control( $args );
 
@@ -61,16 +62,16 @@ class Kirki_Control {
 	 *
 	 * @return         string   the name of the class that will be used to create this control.
 	 */
-	final private function get_control_class_name( $args ) {
+	private function get_control_class_name( $args ) {
 
 		// Set a default class name.
 		$class_name = 'WP_Customize_Control';
+
 		// Get the classname from the array of control classnames.
 		if ( array_key_exists( $args['type'], self::$control_types ) ) {
 			$class_name = self::$control_types[ $args['type'] ];
 		}
 		return $class_name;
-
 	}
 
 	/**
@@ -83,6 +84,7 @@ class Kirki_Control {
 
 		// Get the name of the class we're going to use.
 		$class_name = $this->get_control_class_name( $args );
+
 		// Add the control.
 		$this->wp_customize->add_control( new $class_name( $this->wp_customize, $args['settings'], $args ) );
 
@@ -90,24 +92,23 @@ class Kirki_Control {
 
 	/**
 	 * Sets the $control_types property.
-	 * Makes sure the kirki/control_types filter is applied
+	 * Makes sure the kirki_control_types filter is applied
 	 * and that the defined classes actually exist.
 	 * If a defined class does not exist, it is removed.
 	 *
 	 * @access private
 	 */
-	final private function set_control_types() {
+	private function set_control_types() {
 
 		// Early exit if this has already run.
 		if ( ! empty( self::$control_types ) ) {
 			return;
 		}
 
-		self::$control_types = apply_filters( 'kirki/control_types', array() );
+		self::$control_types = apply_filters( 'kirki_control_types', array() );
 
 		// Make sure the defined classes actually exist.
 		foreach ( self::$control_types as $key => $classname ) {
-
 			if ( ! class_exists( $classname ) ) {
 				unset( self::$control_types[ $key ] );
 			}

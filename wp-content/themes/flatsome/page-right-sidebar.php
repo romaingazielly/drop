@@ -1,6 +1,6 @@
 <?php
 /*
-Template name: Page - Right sidebar
+Template name: Page - Right Sidebar
 */
 get_header(); ?>
 
@@ -14,25 +14,25 @@ get_header(); ?>
 		<?php if(get_theme_mod('default_title', 0)){ ?>
 			<header class="entry-header">
 				<h1 class="entry-title mb uppercase"><?php the_title(); ?></h1>
-			</header><!-- .entry-header -->
+			</header>
 		<?php } ?>
 		<?php while ( have_posts() ) : the_post(); ?>
 
 			<?php the_content(); ?>
-			
+
 			<?php if ( comments_open() || '0' != get_comments_number() ){
 						comments_template(); } ?>
 
 		<?php endwhile; // end of the loop. ?>
-	</div><!-- .page-inner -->
-</div><!-- .#content large-9 left -->
+	</div>
+</div>
 
 <div class="large-3 col">
 	<?php get_sidebar(); ?>
-</div><!-- .sidebar -->
+</div>
 
-</div><!-- .row -->
-</div><!-- .page-right-sidebar container -->
+</div>
+</div>
 
 <?php do_action( 'flatsome_after_page' ); ?>
 

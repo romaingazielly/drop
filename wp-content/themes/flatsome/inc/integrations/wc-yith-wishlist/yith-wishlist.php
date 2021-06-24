@@ -22,8 +22,8 @@ if ( ! function_exists( 'flatsome_wishlist_integrations_scripts' ) ) {
 		wp_dequeue_style( 'yith_wcas_frontend' );
 		wp_deregister_style( 'yith_wcas_frontend' );
 
-		wp_enqueue_script( 'flatsome-woocommerce-wishlist',  $integrations_uri . '/wc-yith-wishlist/wishlist.js', array( 'jquery', 'flatsome-js' ), '3.4', true );
-		wp_enqueue_style( 'flatsome-woocommerce-wishlist', $integrations_uri . '/wc-yith-wishlist/wishlist.css', 'flatsome-woocommerce-style', '3.4' );
+		wp_enqueue_script( 'flatsome-woocommerce-wishlist',  $integrations_uri . '/wc-yith-wishlist/wishlist.js', array( 'jquery', 'flatsome-js' ), '3.10.2', true );
+		wp_enqueue_style( 'flatsome-woocommerce-wishlist', $integrations_uri . '/wc-yith-wishlist/wishlist.css', 'flatsome-woocommerce-style', '3.10.2' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'flatsome_wishlist_integrations_scripts' );
@@ -58,7 +58,7 @@ if ( ! function_exists( 'flatsome_product_wishlist_button' ) ) {
 		if ( ! $icon ) $icon = 'heart';
 		?>
 		<div class="wishlist-icon">
-			<button class="wishlist-button button is-outline circle icon">
+			<button class="wishlist-button button is-outline circle icon" aria-label="<?php echo __( 'Wishlist', 'flatsome' ); ?>">
 				<?php echo get_flatsome_icon( 'icon-' . $icon ); ?>
 			</button>
 			<div class="wishlist-popup dark">

@@ -1,22 +1,23 @@
 <?php
 /**
- * Plugin Name:   Kirki Toolkit
- * Plugin URI:    http://kirki.org
- * Description:   The ultimate WordPress Customizer Toolkit
- * Author:        Aristeides Stathopoulos
- * Author URI:    http://aristeides.com
- * Version:       3.0.15
+ * Plugin Name:   Kirki Customizer Framework
+ * Plugin URI:    https://kirki.org
+ * Description:   The Ultimate WordPress Customizer Framework
+ * Author:        David Vongries
+ * Author URI:    https://wp-pagebuilderframework.com/
+ * Version:       3.1.5
  * Text Domain:   kirki
+ * Requires WP:   4.9
+ * Requires PHP:  5.3
+ * GitHub Plugin URI: kirki-framework/kirki
+ * GitHub Plugin URI: https://github.com/kirki-framework/kirki
  *
- * GitHub Plugin URI: aristath/kirki
- * GitHub Plugin URI: https://github.com/aristath/kirki
- *
- * @package     Kirki
- * @category    Core
- * @author      Aristeides Stathopoulos
- * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
- * @since       1.0
+ * @package   Kirki
+ * @category  Core
+ * @author    Ari Stathopoulos (@aristath)
+ * @copyright Copyright (c) 2020, David Vongries
+ * @license   https://opensource.org/licenses/MIT
+ * @since     1.0
  */
 
 // Exit if accessed directly.
@@ -30,7 +31,7 @@ if ( class_exists( 'Kirki' ) ) {
 }
 
 // Include the autoloader.
-include_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class-kirki-autoload.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class-kirki-autoload.php'; // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
 new Kirki_Autoload();
 
 if ( ! defined( 'KIRKI_PLUGIN_FILE' ) ) {
@@ -39,34 +40,28 @@ if ( ! defined( 'KIRKI_PLUGIN_FILE' ) ) {
 
 // Define the KIRKI_VERSION constant.
 if ( ! defined( 'KIRKI_VERSION' ) ) {
-	if ( ! function_exists( 'get_plugin_data' ) ) {
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
-	$data = get_plugin_data( KIRKI_PLUGIN_FILE );
-	$version = ( isset( $data['Version'] ) ) ? $data['Version'] : false;
-	define( 'KIRKI_VERSION', $version );
+	define( 'KIRKI_VERSION', '3.1.5' );
 }
 
 // Make sure the path is properly set.
-Kirki::$path = wp_normalize_path( dirname( __FILE__ ) );
+Kirki::$path = wp_normalize_path( dirname( __FILE__ ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 Kirki_Init::set_url();
 
+new Kirki_Controls();
+
 if ( ! function_exists( 'Kirki' ) ) {
-	// @codingStandardsIgnoreStart
 	/**
 	 * Returns an instance of the Kirki object.
 	 */
-	function Kirki() {
+	function kirki() {
 		$kirki = Kirki_Toolkit::get_instance();
 		return $kirki;
 	}
-	// @codingStandardsIgnoreEnd
-
 }
 
 // Start Kirki.
 global $kirki;
-$kirki = Kirki();
+$kirki = kirki();
 
 // Instantiate the modules.
 $kirki->modules = new Kirki_Modules();
@@ -78,10 +73,10 @@ new Kirki();
 new Kirki_L10n();
 
 // Include deprecated functions & methods.
-include_once wp_normalize_path( dirname( __FILE__ ) . '/core/deprecated.php' );
+require_once wp_normalize_path( dirname( __FILE__ ) . '/deprecated/deprecated.php' ); // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
 
 // Include the ariColor library.
-include_once wp_normalize_path( dirname( __FILE__ ) . '/lib/class-aricolor.php' );
+require_once wp_normalize_path( dirname( __FILE__ ) . '/lib/class-aricolor.php' ); // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
 
 // Add an empty config for global fields.
 Kirki::add_config( '' );
@@ -89,11 +84,19 @@ Kirki::add_config( '' );
 $custom_config_path = dirname( __FILE__ ) . '/custom-config.php';
 $custom_config_path = wp_normalize_path( $custom_config_path );
 if ( file_exists( $custom_config_path ) ) {
-	include_once $custom_config_path;
+	require_once $custom_config_path; // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
 }
 
 // Add upgrade notifications.
-include_once wp_normalize_path( dirname( __FILE__ ) . '/upgrade-notifications.php' );
+require_once wp_normalize_path( dirname( __FILE__ ) . '/upgrade-notifications.php' ); // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
 
-// Uncomment this line to see the demo controls in the customizer.
-/* include_once dirname( __FILE__ ) . '/example.php'; */
+/**
+ * To enable tests, add this line to your wp-config.php file (or anywhere alse):
+ * define( 'KIRKI_TEST', true );
+ *
+ * Please note that the example.php file is not included in the wordpress.org distribution
+ * and will only be included in dev versions of the plugin in the github repository.
+ */
+if ( defined( 'KIRKI_TEST' ) && true === KIRKI_TEST && file_exists( dirname( __FILE__ ) . '/example.php' ) ) {
+	include_once dirname( __FILE__ ) . '/example.php'; // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude
+}

@@ -7,5 +7,5 @@
 	 		<h1 class="page-title uppercase"><?php echo get_the_title() ?></h1>
 	 		<div class="is-divider"></div>
 	 	</div>
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

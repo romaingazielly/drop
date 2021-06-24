@@ -1,6 +1,6 @@
 <?php
 /*
-Template name: Page - Vertical Sub-nav
+Template name: Page - Vertical Sub-Nav
 */
 get_header(); ?>
 
@@ -11,7 +11,7 @@ get_header(); ?>
 <div class="large-3 col col-border">
 	<h3 class="uppercase"><?php echo get_the_title($post->post_parent); ?></h3>
 
-	 <?php 
+	 <?php
     if ( is_page() && $post->post_parent )
 		$childpages = wp_list_pages( 'sort_column=menu_order&title_li=&child_of=' . $post->post_parent . '&echo=0' );
 	else
@@ -24,13 +24,13 @@ get_header(); ?>
 	echo $string;
 
 	?>
-</div><!-- .large-3 -->
+</div>
 
 <div class="large-9 col">
 	<div class="tabs-inner active">
 			<header class="entry-header">
 				<h1 class="entry-title"><?php the_title(); ?></h1>
-			</header><!-- .entry-header -->	
+			</header>
 
 			<div id="content" role="main">
 
@@ -40,15 +40,15 @@ get_header(); ?>
 
 					<?php if ( comments_open() || '0' != get_comments_number() ){
 							comments_template(); } ?>
-				
+
 				<?php endwhile; // end of the loop. ?>
-						
+
 			</div>
 
-	</div><!-- .tabs-inner -->
-	</div><!-- .large-9 -->
-</div><!-- .row -->
-</div><!-- .page-wrapper -->
+	</div>
+	</div>
+</div>
+</div>
 
 <?php do_action( 'flatsome_after_page' ); ?>
 

@@ -47,6 +47,7 @@ add_action( 'woocommerce_share', 'flatsome_product_share',  10 );
 
 /* Remove Product Description Heading */
 function flatsome_remove_product_description_heading($heading){
+
      return $heading = '';
 }
 add_filter('woocommerce_product_description_heading','flatsome_remove_product_description_heading');
@@ -57,43 +58,6 @@ function flatsome_remove_product_information_heading($heading){
      return $heading = '';
 }
 add_filter('woocommerce_product_additional_information_heading','flatsome_remove_product_information_heading');
-
-
-// Add Extra Product Images to Product Slider ( FOR WC 2.X ONLY)
-if(!function_exists('flatsome_add_extra_product_images')) {
-    function flatsome_add_extra_product_images(){
-        global $post;
-
-        $_pf = new WC_Product_Factory();
-
-        $_product = $_pf->get_product(get_the_ID());
-
-        $image_size = 'shop_single';
-
-        if(flatsome_option('product_layout') == 'gallery-wide' && is_product()){
-          $image_size = 'large';
-        }
-
-        $attachment_ids = fl_woocommerce_version_check('3.0.0') ? $_product->get_gallery_image_ids() : $_product->get_gallery_attachment_ids();
-
-        if ( $attachment_ids ) {
-            $loop = 0;
-            $columns = apply_filters( 'woocommerce_product_thumbnails_columns', 3 );
-
-            foreach ( $attachment_ids as $attachment_id ) {
-
-                $image_title  = esc_attr( get_the_title( $attachment_id ) );
-                $image_caption  = get_post( $attachment_id )->post_excerpt;
-                $image_link   = wp_get_attachment_url( $attachment_id );
-                $image =  wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', $image_size ), array('title' => $image_title,'alt' => $image_title) );
-                echo apply_filters( 'woocommerce_single_product_image_html',sprintf( '<div class="slide"><a href="%s" class="woocommerce-main-image zoom" title="%s" data-rel="prettyPhoto[product-gallery]">%s</a></div>', $image_link, $image_caption, $image ), $attachment_id);
-            }
-        }
-    }
-}
-
-add_action('flatsome_single_product_images','flatsome_add_extra_product_images');
-
 
 // Move Sale Flash to another hook
 remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash',10);
@@ -106,7 +70,7 @@ function flatsome_product_video_button(){
   global $wc_cpdf;
        // Add Product Video
       if($wc_cpdf->get_value(get_the_ID(), '_product_video')){ ?>
-      <a class="button is-outline circle icon button product-video-popup tip-top" href="<?php echo $wc_cpdf->get_value(get_the_ID(), '_product_video'); ?>" title="<?php echo __( 'Video', 'flatsome' ); ?>">
+      <a class="button is-outline circle icon button product-video-popup tip-top" href="<?php echo trim( $wc_cpdf->get_value( get_the_ID(), '_product_video' ) ); ?>" title="<?php echo __( 'Video', 'flatsome' ); ?>">
             <?php echo get_flatsome_icon('icon-play'); ?>
       </a>
       <style>
@@ -158,9 +122,11 @@ function flatsome_product_body_classes( $classes ) {
 add_filter( 'body_class', 'flatsome_product_body_classes' );
 
 
-function flatsome_product_video_tab(){
-   global $wc_cpdf;
-   echo do_shortcode('[ux_video url="'.$wc_cpdf->get_value(get_the_ID(), '_product_video').'"]');
+function flatsome_product_video_tab() {
+	global $wc_cpdf;
+	echo flatsome_apply_shortcode( 'ux_video', array(
+		'url' => trim( $wc_cpdf->get_value( get_the_ID(), '_product_video' ) ),
+	) );
 }
 
 // Custom Product Tabs
@@ -260,7 +226,6 @@ function flatsome_product_top_content(){
 
 add_action('flatsome_before_product_page','flatsome_product_top_content', 10);
 
-
 // Add Custom HTML to bottom of product page
 function flatsome_product_bottom_content(){
   global $wc_cpdf;
@@ -278,18 +243,20 @@ add_filter( 'woocommerce_output_related_products_args', 'flatsome_related_produc
 
 
 function flatsome_sticky_add_to_cart_before() {
-	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) ) {
+	global $product;
+
+	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) || ! apply_filters( 'flatsome_sticky_add_to_cart_enabled', true, $product ) ) {
 		return;
 	}
 
-	global $product;
 	echo '<div class="sticky-add-to-cart-wrapper">';
 	echo '<div class="sticky-add-to-cart">';
 	echo '<div class="sticky-add-to-cart__product">';
 	$image_id = $product->get_image_id();
 	$image    = wp_get_attachment_image_src( $image_id, 'woocommerce_gallery_thumbnail' );
 	if ( $image ) {
-		$image = '<img src="' . $image[0] . '" class="sticky-add-to-cart-img" />';
+		$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+		$image     = '<img src="' . $image[0] . '" alt="' . $image_alt . '" class="sticky-add-to-cart-img" />';
 		echo $image;
 	}
 	echo '<div class="product-title-small hide-for-small"><strong>' . get_the_title() . '</strong></div>';
@@ -303,7 +270,9 @@ add_action( 'woocommerce_before_add_to_cart_button', 'flatsome_sticky_add_to_car
 
 
 function flatsome_sticky_add_to_cart_after() {
-	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) ) {
+	global $product;
+
+	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) || ! apply_filters( 'flatsome_sticky_add_to_cart_enabled', true, $product ) ) {
 		return;
 	}
 

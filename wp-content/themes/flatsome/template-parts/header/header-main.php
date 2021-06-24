@@ -35,10 +35,9 @@
             </ul>
           </div>
 
-      </div><!-- .header-inner -->
+      </div>
      
       <?php if(get_theme_mod('header_divider', 1)) { ?>
-      <!-- Header divider -->
       <div class="container"><div class="top-divider full-width"></div></div>
       <?php }?>
-</div><!-- .header-main -->
+</div>

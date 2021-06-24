@@ -139,11 +139,11 @@ function ux_section( $atts, $content = null ) {
 
 			<?php require( __DIR__ . '/commons/border.php' ); ?>
 
-		</div><!-- .section-bg -->
+		</div>
 
 		<div class="section-content relative">
 			<?php echo $content; ?>
-		</div><!-- .section-content -->
+		</div>
 
 		<?php
 		// Get custom CSS.

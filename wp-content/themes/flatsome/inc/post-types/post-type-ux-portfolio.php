@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 /* start post type */
@@ -7,8 +7,6 @@ if ( ! class_exists( 'Featured_Item_Post_Type' ) ) :
 class Featured_Item_Post_Type {
 
 	public function __construct() {
-	// Run when the plugin is activated
-		register_activation_hook( __FILE__, array( $this, 'plugin_activation' ) );
 
 		// Add the featured_item post type and taxonomies
 		add_action( 'init', array( $this, 'featured_item_init' ) );
@@ -25,28 +23,11 @@ class Featured_Item_Post_Type {
 
 		// Show featured_item post counts in the dashboard
 		add_action( 'right_now_content_table_end', array( $this, 'add_featured_item_counts' ) );
-		
+
 
 		// Add taxonomy terms as body classes
 		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
-		
-	}
 
-	/**
-	 * Load the plugin text domain for translation.
-	 */
-
-
-	/**
-	 * Flushes rewrite rules on plugin activation to ensure featured_item posts don't 404.
-	 *
-	 * @link http://codex.wordpress.org/Function_Reference/flush_rewrite_rules
-	 *
-	 * @uses Featured Item_Post_Type::featured_item_init()
-	 */
-	public function plugin_activation() {
-		$this->featured_item_init();
-		flush_rewrite_rules();
 	}
 
 	/**
@@ -91,7 +72,7 @@ class Featured_Item_Post_Type {
 			'not_found'          => __( 'No items found', 'flatsome-admin' ),
 			'not_found_in_trash' => __( 'No items found in trash', 'flatsome-admin' ),
 		);
-		
+
 		$args = array(
 			'menu_icon' => 'dashicons-portfolio',
 			'labels'          => $labels,
@@ -105,10 +86,11 @@ class Featured_Item_Post_Type {
 				'author',
 				'custom-fields',
 				'revisions',
+				'page-attributes',
 			),
 			'capability_type' => 'page',
 			'menu_position'   => 5,
-			'hierarchical'      => true,
+			'hierarchical'    => false,
 			'has_archive'     => true,
 		);
 
@@ -167,7 +149,7 @@ class Featured_Item_Post_Type {
 	 * @link http://codex.wordpress.org/Function_Reference/register_taxonomy
 	 */
 	protected function register_taxonomy_category() {
-		
+
 
 		$labels = array(
 			'name'                       => __( 'Categories', 'flatsome-admin' ),
@@ -202,69 +184,51 @@ class Featured_Item_Post_Type {
 		$args = apply_filters( 'featured_itemposttype_category_args', $args );
 
 		register_taxonomy( 'featured_item_category', array( 'featured_item' ), $args );
-		
-		if(flatsome_option('featured_items_page')){
-			add_action( 'wp_loaded', 'add_ux_featured_item_permastructure' );
-			function add_ux_featured_item_permastructure() {
-				$items_link = flatsome_option('featured_items_page');
-				add_permastruct( 'featured_item_category',  $items_link.'/%featured_item_category%', false );
-				add_permastruct( 'featured_item', $items_link.'/%featured_item_category%/%featured_item%', false );
-			}
+
+		if ( $items_link = flatsome_option( 'featured_items_page' ) ) {
+			add_permastruct( 'featured_item_category', $items_link . '/%featured_item_category%', false );
+			add_permastruct( 'featured_item', $items_link . '/%featured_item_category%/%featured_item%', false );
 
 			add_filter( 'post_type_link', 'ux_featured_items_permalinks', 10, 2 );
 			function ux_featured_items_permalinks( $permalink, $post ) {
 				if ( $post->post_type !== 'featured_item' )
 					return $permalink;
-			 
+
 				$terms = get_the_terms( $post->ID, 'featured_item_category' );
-				
+
 				if ( ! $terms )
 					return str_replace( '/%featured_item_category%', '', $permalink );
-			 
+
 				$post_terms = array();
 				foreach ( $terms as $term )
 					$post_terms[] = $term->slug;
-			 
+
 				return str_replace( '%featured_item_category%', implode( ',', $post_terms ) , $permalink );
 			}
 
-
-
-			// Make sure that all term links include their parents in the permalinks
-			add_filter( 'term_link', 'add_term_parents_to_permalinks', 10, 2 );
-			 
-			function add_term_parents_to_permalinks( $permalink, $term ) {
-				$term_parents = get_term_parents( $term );
-			 
-				foreach ( $term_parents as $term_parent )
-					$permlink = str_replace( $term->slug, $term_parent->slug . ',' . $term->slug, $permalink );
-			 
-				return $permalink;
-			}
-			 
 			// Helper function to get all parents of a term
 			function get_term_parents( $term, &$parents = array() ) {
 				$parent = get_term( $term->parent, $term->taxonomy );
-				
+
 				if ( is_wp_error( $parent ) )
 					return $parents;
-				
+
 				$parents[] = $parent;
-			 
+
 				if ( $parent->parent )
 					get_term_parents( $parent, $parents );
-			 
+
 			    return $parents;
 			}
 
 		} // Set custom permalinks
-		
-		
+
+
 
 
 	}
 
-		
+
 
 	/**
 	 * Add taxonomy terms as body classes.
@@ -424,7 +388,7 @@ class Featured_Item_Post_Type {
 		<?php
 	}
 
-	
+
 
 }
 

@@ -10,7 +10,7 @@
 add_filter( 'ux_builder_post_options', function ( $options, $post ) {
   $options['post_title'] = array(
     'type' => 'textfield',
-    'heading' => __( 'Title', 'ux_builder' ),
+    'heading' => __( 'Title', 'ux-builder' ),
     'full_width' => true,
   );
 
@@ -25,7 +25,7 @@ add_filter( 'ux_builder_post_options', function ( $options, $post ) {
 
   $options['post_excerpt'] = array(
     'type' => 'textarea',
-    'heading' => __( 'Excerpt', 'ux_builder' ),
+    'heading' => __( 'Excerpt', 'ux-builder' ),
     'default' => $post->post_excerpt,
     'full_width' => true,
     'on_change' => array(

@@ -6,7 +6,7 @@
  */
 
 $layout = get_theme_mod( 'category_sidebar', 'left-sidebar' );
-if ( 'none' === $layout || get_theme_mod( 'html_shop_page_content' ) ) {
+if ( 'none' === $layout || ( get_theme_mod( 'html_shop_page_content' ) && ! is_product_category() && ! is_product_tag() ) ) {
 	return;
 }
 
@@ -22,7 +22,7 @@ $filter_text = $custom_filter_text ? $custom_filter_text : __( 'Filter', 'woocom
 ?>
 <div class="category-filtering category-filter-row <?php echo $class ?>">
 	<a href="#" data-open="#shop-sidebar" <?php echo $after ?> data-pos="left" class="filter-button uppercase plain">
-		<i class="icon-menu"></i>
+		<i class="icon-equalizer"></i>
 		<strong><?php echo $filter_text ?></strong>
 	</a>
 	<div class="inline-block">

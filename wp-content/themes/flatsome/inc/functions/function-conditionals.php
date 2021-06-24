@@ -41,7 +41,7 @@ if ( ! function_exists( 'is_yith_wishlist_premium' ) ) {
 	 * @return bool
 	 */
 	function is_yith_wishlist_premium() {
-		return ! class_exists( 'YITH_WCWL_Privacy' ) && file_exists( WP_PLUGIN_DIR . '/yith-woocommerce-wishlist-premium/init.php' );
+		return ! defined( 'YITH_WCWL_FREE_INIT' ) && file_exists( WP_PLUGIN_DIR . '/yith-woocommerce-wishlist-premium/init.php' );
 	}
 }
 

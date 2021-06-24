@@ -22,16 +22,16 @@ else :
 					<div class="col medium-9">
 						<header class="page-title">
 							<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'flatsome' ); ?></h1>
-						</header><!-- .page-title -->
+						</header>
 						<div class="page-content">
 							<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'flatsome' ); ?></p>
 							<?php get_search_form(); ?>
-						</div><!-- .page-content -->
+						</div>
 					</div>
-				</div><!-- .row -->
-			</section><!-- .error-404 -->
-		</main><!-- #main -->
-	</div><!-- #primary -->
+				</div>
+			</section>
+		</main>
+	</div>
 <?php endif; ?>
 <?php do_action( 'flatsome_after_404' ); ?>
 <?php get_footer(); ?>

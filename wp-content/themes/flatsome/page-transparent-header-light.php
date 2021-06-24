@@ -1,6 +1,6 @@
 <?php
 /*
-Template name: Page - Full Width - Transparent header - Light text
+Template name: Page - Full Width - Transparent Header - Light Text
 */
 get_header(); ?>
 
@@ -10,7 +10,7 @@ get_header(); ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php the_content(); ?>
-			
+
 			<?php endwhile; // end of the loop. ?>
 </div>
 

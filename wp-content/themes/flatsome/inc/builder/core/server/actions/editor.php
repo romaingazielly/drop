@@ -128,7 +128,7 @@ function ux_builder_editor_data() {
     'nonce' => wp_create_nonce( 'ux-builder-' . $editing_post->post()->ID ),
     'ajaxUrl' => admin_url( 'admin-ajax.php' ),
     'flatsomeStudioUrl' => $has_flatsome_studio
-      ? ( is_ssl() ? 'https' : 'http' ) . '://demos.uxthemes.com/'
+      ? 'https://studio.uxthemes.com/'
       : null,
     'iframeUrl' => ux_builder_iframe_url(),
     'backUrl' => $back_url,

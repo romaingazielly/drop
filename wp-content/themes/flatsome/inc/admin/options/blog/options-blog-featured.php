@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 Flatsome_Option::add_section( 'blog-featured', array(
 	'title'       => __( 'Blog Featured Posts', 'flatsome-admin' ),
@@ -41,3 +41,17 @@ Flatsome_Option::add_field( 'option',  array(
 	),
 	'transport' => $transport,
 ));
+
+Flatsome_Option::add_field( 'option', array(
+	'type'     => 'radio-buttonset',
+	'settings' => 'blog_featured_image_size',
+	'label'    => esc_attr__( 'Image Size', 'flatsome-admin' ),
+	'section'  => 'blog-featured',
+	'default'  => 'medium',
+	'choices'  => array(
+		'thumbnail' => 'Thumbnail',
+		'medium'    => 'Medium',
+		'large'     => 'Large',
+		'original'  => 'Original',
+	),
+) );

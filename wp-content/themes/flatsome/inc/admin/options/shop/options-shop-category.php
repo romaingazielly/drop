@@ -44,7 +44,6 @@ Flatsome_Option::add_field( 'option', array(
 	'settings' => 'category_sidebar',
 	'label'    => __( 'Layout', 'flatsome-admin' ),
 	'section'  => 'woocommerce_product_catalog',
-	//'transport' => $transport,
 	'default'  => 'left-sidebar',
 	'choices'  => array(
 		'none'          => $image_url . 'category-no-sidebar.svg',
@@ -52,6 +51,26 @@ Flatsome_Option::add_field( 'option', array(
 		'right-sidebar' => $image_url . 'category-right-sidebar.svg',
 		'off-canvas'    => $image_url . 'category-off-canvas.svg',
 	),
+) );
+
+Flatsome_Option::add_field( 'option', array(
+	'type'            => 'checkbox',
+	'settings'        => 'category_sticky_sidebar',
+	'label'           => __( 'Sticky sidebar', 'flatsome-admin' ),
+	'section'         => 'woocommerce_product_catalog',
+	'active_callback' => array(
+		array(
+			'setting'  => 'category_sidebar',
+			'operator' => '!==',
+			'value'    => 'none',
+		),
+		array(
+			'setting'  => 'category_sidebar',
+			'operator' => '!==',
+			'value'    => 'off-canvas',
+		),
+	),
+	'default'         => 0,
 ) );
 
 Flatsome_Option::add_field( 'option', array(
@@ -191,17 +210,18 @@ Flatsome_Option::add_field( 'option', array(
 	'default'   => '0',
 ) );
 
-$hide_on_wpseo_breadcrumb  = get_theme_mod( 'wpseo_breadcrumb' ) ? '__return_false' : '__return_true';
-
 Flatsome_Option::add_field( 'option', array(
 	'type'            => 'checkbox',
 	'settings'        => 'breadcrumb_home',
 	'transport'       => $transport,
 	'label'           => __( 'Show home link in breadcrumb', 'flatsome-admin' ),
 	'section'         => 'woocommerce_product_catalog',
-	'active_callback' => array(
-		$hide_on_wpseo_breadcrumb,
-	),
+	'active_callback' => function () {
+		$wpseo     = class_exists( 'WPSEO_Frontend' ) && get_theme_mod( 'wpseo_breadcrumb' ) ? true : false;
+		$rank_math = class_exists( 'RankMath' ) && get_theme_mod( 'rank_math_breadcrumb' ) ? true : false;
+
+		return ! $wpseo && ! $rank_math;
+	},
 	'default'         => 1,
 ) );
 
@@ -263,11 +283,23 @@ Flatsome_Option::add_field( 'option', array(
 	'type'     => 'select',
 	'settings' => 'breadcrumb_size',
 	'label'    => __( 'Breadcrumb Size', 'flatsome-admin' ),
-	//'description' => __( 'This is the control description', 'flatsome-admin' ),
 	'help'     => __( 'Change size of breadcrumb on product categories. Useful if you have long breadcrumbs.', 'flatsome-admin' ),
 	'section'  => 'woocommerce_product_catalog',
 	'default'  => 'large',
 	'choices'  => $sizes,
+) );
+
+
+Flatsome_Option::add_field( 'option', array(
+	'type'     => 'radio-buttonset',
+	'settings' => 'breadcrumb_case',
+	'label'    => esc_attr__( 'Breadcrumbs Case', 'flatsome-admin' ),
+	'section'  => 'woocommerce_product_catalog',
+	'default'  => 'uppercase',
+	'choices'  => array(
+		'uppercase' => 'UPPERCASE',
+		''          => 'Normal',
+	),
 ) );
 
 Flatsome_Option::add_field( '', array(
@@ -294,6 +326,15 @@ Flatsome_Option::add_field( 'option', array(
 		'bounce'  => $image_url . 'category-box-bounce.svg',
 		'push'    => $image_url . 'category-box-push.svg',
 	),
+) );
+
+Flatsome_Option::add_field( 'option', array(
+	'type'      => 'checkbox',
+	'settings'  => 'category_show_count',
+	'transport' => $transport,
+	'label'     => __( 'Show product count', 'flatsome-admin' ),
+	'section'   => 'woocommerce_product_catalog',
+	'default'   => 1,
 ) );
 
 Flatsome_Option::add_field( '', array(
@@ -439,8 +480,7 @@ Flatsome_Option::add_field( 'option', array(
 	'type'        => 'checkbox',
 	'settings'    => 'equalize_product_box',
 	'transport'   => $transport,
-	'label'       => esc_attr__( 'Equalize item heights', 'flatsome' ),
-	'description' => esc_attr__( 'Equalize box items to the same height', 'flatsome' ),
+	'label'       => esc_attr__( 'Equalize Items', 'flatsome-admin' ),
 	'section'     => 'woocommerce_product_catalog',
 	'default'     => '0',
 ) );

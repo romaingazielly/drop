@@ -26,21 +26,25 @@ function flatsome_share($atts, $content = null) {
 	if ( $style ) $wrapper_class[] = 'icon-style-'.$style;
 
 
-	global $post;
-	if(!$post) return false;
+	$link = get_permalink();
 
-	$post_id   = $post->ID;
-	$permalink = get_permalink( $post_id );
-
-	if ( is_woocommerce_activated() && is_shop() ) {
-		$post_id   = wc_get_page_id( 'shop' );
-		$permalink = get_permalink( $post_id );
+	if ( is_woocommerce_activated() ) {
+		if ( is_shop() ) {
+			$link = get_permalink( wc_get_page_id( 'shop' ) );
+		}
+		if ( is_product_category() || is_category() ) {
+			$link = get_category_link( get_queried_object()->term_id );
+		}
 	}
 
-	$featured_image =  wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'large');
-	$featured_image_2 = $featured_image['0'];
-	$post_title = rawurlencode(get_the_title($post_id));
-	$whatsapp_text = $post_title.' - '.$permalink;
+	if ( is_home() && ! is_front_page() ) {
+		$link = get_permalink( get_option( 'page_for_posts' ) );
+	}
+
+	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+	$share_img      = $featured_image ? $featured_image['0'] : '';
+	$post_title     = rawurlencode( get_the_title() );
+	$whatsapp_text  = $post_title . ' - ' . $link;
 
 	if($title) $title = '<span class="share-icons-title">'.$title.'</span>';
 
@@ -52,7 +56,7 @@ function flatsome_share($atts, $content = null) {
 	$classes = get_flatsome_icon_class($style);
 	$classes = $classes. ' tooltip';
 
-	$share = get_theme_mod('social_icons', array('facebook','twitter','email','linkedin','googleplus','pinterest','whatsapp'));
+	$share = get_theme_mod('social_icons', array('facebook','twitter','email','linkedin','pinterest','whatsapp'));
 
 	// Scale
 	if($scale) $scale = 'style="font-size:'.$scale.'%"';
@@ -74,23 +78,21 @@ function flatsome_share($atts, $content = null) {
 	<div class="<?php echo implode(' ', $wrapper_class); ?>" <?php echo $scale;?>>
 		  <?php echo $title; ?>
 		  <?php if(in_array('whatsapp', $share)){ ?>
-		  <a href="whatsapp://send?text=<?php echo $whatsapp_text; ?>" data-action="share/whatsapp/share" class="<?php echo $classes;?> whatsapp show-for-medium" title="<?php _e('Share on WhatsApp','flatsome'); ?>"><i class="icon-phone"></i></a>
+		  <a href="whatsapp://send?text=<?php echo $whatsapp_text; ?>" data-action="share/whatsapp/share" class="<?php echo $classes;?> whatsapp show-for-medium" title="<?php _e('Share on WhatsApp','flatsome'); ?>"><i class="icon-whatsapp"></i></a>
 		  <?php } if(in_array('facebook', $share)){ ?>
-		  <a href="//www.facebook.com/sharer.php?u=<?php echo $permalink; ?>" data-label="Facebook" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> facebook" title="<?php _e('Share on Facebook','flatsome'); ?>"><?php echo get_flatsome_icon('icon-facebook'); ?></a>
+		  <a href="https://www.facebook.com/sharer.php?u=<?php echo $link; ?>" data-label="Facebook" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> facebook" title="<?php _e('Share on Facebook','flatsome'); ?>"><?php echo get_flatsome_icon('icon-facebook'); ?></a>
 		  <?php } if(in_array('twitter', $share)){ ?>
-          <a href="//twitter.com/share?url=<?php echo $permalink; ?>" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> twitter" title="<?php _e('Share on Twitter','flatsome'); ?>"><?php echo get_flatsome_icon('icon-twitter'); ?></a>
+          <a href="https://twitter.com/share?url=<?php echo $link; ?>" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> twitter" title="<?php _e('Share on Twitter','flatsome'); ?>"><?php echo get_flatsome_icon('icon-twitter'); ?></a>
           <?php } if(in_array('email', $share)){ ?>
-          <a href="mailto:enteryour@addresshere.com?subject=<?php echo $post_title; ?>&amp;body=Check%20this%20out:%20<?php echo $permalink; ?>" rel="nofollow" class="<?php echo $classes;?> email" title="<?php _e('Email to a Friend','flatsome'); ?>"><?php echo get_flatsome_icon('icon-envelop'); ?></a>
+          <a href="mailto:enteryour@addresshere.com?subject=<?php echo $post_title; ?>&amp;body=Check%20this%20out:%20<?php echo $link; ?>" rel="nofollow" class="<?php echo $classes;?> email" title="<?php _e('Email to a Friend','flatsome'); ?>"><?php echo get_flatsome_icon('icon-envelop'); ?></a>
           <?php } if(in_array('pinterest', $share)){ ?>
-          <a href="//pinterest.com/pin/create/button/?url=<?php echo $permalink; ?>&amp;media=<?php echo $featured_image_2; ?>&amp;description=<?php echo $post_title; ?>" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> pinterest" title="<?php _e('Pin on Pinterest','flatsome'); ?>"><?php echo get_flatsome_icon('icon-pinterest'); ?></a>
-          <?php } if(in_array('googleplus', $share)){ ?>
-          <a href="//plus.google.com/share?url=<?php echo $permalink; ?>" target="_blank" class="<?php echo $classes;?> google-plus" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" title="<?php _e('Share on Google+','flatsome'); ?>"><?php echo get_flatsome_icon('icon-google-plus'); ?></a>
+          <a href="https://pinterest.com/pin/create/button/?url=<?php echo $link; ?>&amp;media=<?php echo $share_img; ?>&amp;description=<?php echo $post_title; ?>" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> pinterest" title="<?php _e('Pin on Pinterest','flatsome'); ?>"><?php echo get_flatsome_icon('icon-pinterest'); ?></a>
           <?php } if(in_array('vk', $share)){ ?>
-          <a href="//vkontakte.ru/share.php?url=<?php echo $permalink; ?>" target="_blank" class="<?php echo $classes;?> vk" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" title="<?php _e('Share on VKontakte','flatsome'); ?>"><?php echo get_flatsome_icon('icon-vk'); ?></a>
+          <a href="https://vkontakte.ru/share.php?url=<?php echo $link; ?>" target="_blank" class="<?php echo $classes;?> vk" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" title="<?php _e('Share on VKontakte','flatsome'); ?>"><?php echo get_flatsome_icon('icon-vk'); ?></a>
           <?php } if(in_array('linkedin', $share)){ ?>
-          <a href="//www.linkedin.com/shareArticle?mini=true&url=<?php echo $permalink; ?>&title=<?php echo $post_title; ?>" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;"  rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> linkedin" title="<?php _e('Share on LinkedIn','flatsome'); ?>"><?php echo get_flatsome_icon('icon-linkedin'); ?></a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $link; ?>&title=<?php echo $post_title; ?>" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;"  rel="noopener noreferrer nofollow" target="_blank" class="<?php echo $classes;?> linkedin" title="<?php _e('Share on LinkedIn','flatsome'); ?>"><?php echo get_flatsome_icon('icon-linkedin'); ?></a>
           <?php } if(in_array('tumblr', $share)){ ?>
-          <a href="//tumblr.com/widgets/share/tool?canonicalUrl=<?php echo $permalink; ?>" target="_blank" class="<?php echo $classes;?> tumblr" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;"  rel="noopener noreferrer nofollow" title="<?php _e('Share on Tumblr','flatsome'); ?>"><?php echo get_flatsome_icon('icon-tumblr'); ?></a>
+          <a href="https://tumblr.com/widgets/share/tool?canonicalUrl=<?php echo $link; ?>" target="_blank" class="<?php echo $classes;?> tumblr" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;"  rel="noopener noreferrer nofollow" title="<?php _e('Share on Tumblr','flatsome'); ?>"><?php echo get_flatsome_icon('icon-tumblr'); ?></a>
           <?php } ?>
     </div>
 
@@ -105,7 +107,7 @@ add_shortcode('share','flatsome_share');
 
 // [follow]
 function flatsome_follow($atts, $content = null) {
-	$sliderrandomid = rand();
+
 	extract(shortcode_atts(array(
 		'title' => '',
 		'class' => '',
@@ -113,14 +115,13 @@ function flatsome_follow($atts, $content = null) {
 		'style' => 'outline',
 		'align' => '',
 		'scale' => '',
-		'defaults' => '',
 		'twitter' => '',
 		'facebook' => '',
 		'pinterest' => '',
 		'email' => '',
 		'phone' => '',
-		'googleplus' => '',
 		'instagram' => '',
+		'tiktok' => '',
 		'rss' => '',
 		'linkedin' => '',
 		'youtube' => '',
@@ -144,23 +145,24 @@ function flatsome_follow($atts, $content = null) {
 		$wrapper_class[] = 'text-'.$align;
 	}
 
+	// Use global follow links if non is set individually.
+	$has_custom_link = $twitter || $facebook || $instagram || $tiktok || $snapchat || $youtube || $pinterest || $linkedin || $px500 || $vkontakte || $flickr || $email || $phone || $rss;
 
-	// Get Defaults
-	if($defaults){
-		$twitter = get_theme_mod('follow_twitter');
-		$facebook = get_theme_mod('follow_facebook');
-		$instagram = get_theme_mod('follow_instagram');
-		$snapchat = get_theme_mod('follow_snapchat');
-		$youtube = get_theme_mod('follow_youtube');
-		$pinterest = get_theme_mod('follow_pinterest');
-		$googleplus = get_theme_mod('follow_google');
-		$linkedin = get_theme_mod('follow_linkedin');
-		$px500 = get_theme_mod('follow_500px');
-		$vkontakte = get_theme_mod('follow_vk');
-		$flickr = get_theme_mod('follow_flickr');
-		$email = get_theme_mod('follow_email');
-		$phone = get_theme_mod('follow_phone');
-		$rss = get_theme_mod('follow_rss');
+	if ( ! $has_custom_link ) {
+		$twitter   = get_theme_mod( 'follow_twitter' );
+		$facebook  = get_theme_mod( 'follow_facebook' );
+		$instagram = get_theme_mod( 'follow_instagram' );
+		$tiktok    = get_theme_mod( 'follow_tiktok' );
+		$snapchat  = get_theme_mod( 'follow_snapchat' );
+		$youtube   = get_theme_mod( 'follow_youtube' );
+		$pinterest = get_theme_mod( 'follow_pinterest' );
+		$linkedin  = get_theme_mod( 'follow_linkedin' );
+		$px500     = get_theme_mod( 'follow_500px' );
+		$vkontakte = get_theme_mod( 'follow_vk' );
+		$flickr    = get_theme_mod( 'follow_flickr' );
+		$email     = get_theme_mod( 'follow_email' );
+		$phone     = get_theme_mod( 'follow_phone' );
+		$rss       = get_theme_mod( 'follow_rss' );
 	}
 
 	if($size == 'small') $style = 'small';
@@ -168,7 +170,7 @@ function flatsome_follow($atts, $content = null) {
 
 	// Scale
 	if($scale) $scale = 'style="font-size:'.$scale.'%"';
-	
+
 
 	?>
     <div class="<?php echo implode(' ', $wrapper_class); ?>" <?php echo $scale;?>>
@@ -183,6 +185,10 @@ function flatsome_follow($atts, $content = null) {
 		    <a href="<?php echo $instagram; ?>" target="_blank" rel="noopener noreferrer nofollow" data-label="Instagram" class="<?php echo $style; ?>  instagram tooltip" title="<?php _e('Follow on Instagram','flatsome')?>"><?php echo get_flatsome_icon('icon-instagram'); ?>
 		   </a>
 		<?php }?>
+	    <?php if ( $tiktok ) { ?>
+		    <a href="<?php echo $tiktok; ?>" target="_blank" rel="noopener noreferrer nofollow" data-label="TikTok" class="<?php echo $style; ?> tiktok tooltip" title="<?php _e( 'Follow on TikTok', 'flatsome' ) ?>"><?php echo get_flatsome_icon( 'icon-tiktok' ); ?>
+		    </a>
+	    <?php } ?>
 		<?php if($snapchat){?>
 		    <a href="#" data-open="#follow-snapchat-lightbox" data-color="dark" data-pos="center" target="_blank" rel="noopener noreferrer nofollow" data-label="SnapChat" class="<?php echo $style; ?> snapchat tooltip" title="<?php _e('Follow on SnapChat','flatsome')?>"><?php echo get_flatsome_icon('icon-snapchat'); ?>
 		   </a>
@@ -207,10 +213,6 @@ function flatsome_follow($atts, $content = null) {
 	    <?php }?>
 		<?php if($pinterest){?>
 		       <a href="<?php echo $pinterest; ?>" target="_blank" rel="noopener noreferrer nofollow"  data-label="Pinterest"  class="<?php echo $style; ?>  pinterest tooltip" title="<?php _e('Follow on Pinterest','flatsome') ?>"><?php echo get_flatsome_icon('icon-pinterest'); ?>
-		       </a>
-		<?php }?>
-		<?php if($googleplus){?>
-		       <a href="<?php echo $googleplus; ?>" target="_blank" rel="noopener noreferrer nofollow"  data-label="Google+"  class="<?php echo $style; ?>  google-plus tooltip" title="<?php _e('Follow on Google+','flatsome')?>"><?php echo get_flatsome_icon('icon-google-plus'); ?>
 		       </a>
 		<?php }?>
 		<?php if($rss){?>

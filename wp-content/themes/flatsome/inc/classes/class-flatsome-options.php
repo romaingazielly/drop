@@ -90,7 +90,7 @@ class Flatsome_Option {
    */
   public static function add_field( $config_id, $args ) {
     if($config_id == '') $config_id = $args['settings'];
-    
+
     // if Kirki exists, use it.
     if ( class_exists( 'Kirki' ) ) {
       Kirki::add_field( $config_id, $args );

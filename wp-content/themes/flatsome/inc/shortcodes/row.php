@@ -19,6 +19,7 @@ function ux_row($atts, $content = null) {
     // Paddings
     'padding' => '',
     'col_bg' => '',
+	'col_bg_radius' => ''
   ), $atts ) );
 
   // Stop if visibility is hidden
@@ -66,6 +67,11 @@ function ux_row($atts, $content = null) {
         'selector' => '> .col > .col-inner',
         'property' => 'background-color',
       ),
+	 'col_bg_radius' => array(
+		 'selector' => '> .col > .col-inner',
+		 'property' => 'border-radius',
+		 'unit'      => 'px',
+	 ),
   );
 
   $classes =  implode(" ", $classes);
@@ -76,7 +82,9 @@ function ux_row($atts, $content = null) {
 
 // [col]
 function ux_col($atts, $content = null) {
-	extract( shortcode_atts( array(
+	extract( $atts = shortcode_atts( array(
+		'_id' => 'col-'.rand(),
+    'label' => '',
     'span' => '12',
     'span__md' => isset( $atts['span'] ) ? $atts['span'] : '',
     'span__sm' => '',
@@ -85,7 +93,11 @@ function ux_col($atts, $content = null) {
     'divider' => '',
     'animate' => '',
     'padding' => '',
+    'padding__md' => '',
+    'padding__sm' => '',
     'margin' => '',
+    'margin__md' => '',
+    'margin__sm' => '',
     'tooltip' => '',
     'max_width' => '',
     'hover' => '',
@@ -96,9 +108,17 @@ function ux_col($atts, $content = null) {
     'force_first' => '',
     'bg' => '',
     'bg_color' => '',
+    'bg_radius' => '',
     'depth' => '',
     'depth_hover' => '',
-    'text_depth' => ''
+    'text_depth' => '',
+	// Border Control.
+    'border'        => '',
+    'border_margin' => '',
+    'border_style'  => '',
+    'border_radius' => '',
+    'border_color'  => '',
+    'border_hover'  => '',
   ), $atts ) );
 
   // Hide if visibility is hidden
@@ -106,7 +126,6 @@ function ux_col($atts, $content = null) {
 
   $classes[] = 'col';
   $classes_inner[] = 'col-inner';
-  $border_html = '';
 
   // Fix old cols
   if(strpos($span, '/')) $span = flatsome_fix_span($span);
@@ -118,6 +137,7 @@ function ux_col($atts, $content = null) {
   if($span__md) $classes[] = 'medium-'.$span__md;
   if($span__sm) $classes[] = 'small-'.$span__sm;
   if($span) $classes[] = 'large-'.$span;
+  if ( $border_hover ) $classes[] = 'has-hover';
 
   // Force first position
   if($force_first) $classes[] = $force_first.'-col-first';
@@ -152,32 +172,52 @@ function ux_col($atts, $content = null) {
   // Parallax
   if($parallax) $parallax = 'data-parallax-fade="true" data-parallax="'.$parallax.'"';
 
-  // Inline CSS
-  $css_args = array(
-    'span' => array(
-        'attribute' => 'max-width',
-        'value' => $max_width,
-      ),
-    'bg_color' => array(
-      'attribute' => 'background-color',
-      'value' => $bg_color,
-    ),
-    'padding' => array(
-      'attribute' => 'padding',
-      'value' => $padding,
-    ),
-    'margin' => array(
-      'attribute' => 'margin',
-      'value' => $margin,
-    )
-  );
+	// Inline CSS
+	$css_args = array(
+		'span'          => array(
+			'attribute' => 'max-width',
+			'value'     => $max_width,
+		),
+		'bg_color'      => array(
+			'attribute' => 'background-color',
+			'value'     => $bg_color,
+		),
+	);
 
-  $classes =  implode(" ", $classes);
-  $classes_inner =  implode(" ", $classes_inner);
+	$args = array(
+		'padding'   => array(
+			'selector' => '> .col-inner',
+			'property' => 'padding',
+		),
+		'margin'    => array(
+			'selector' => '> .col-inner',
+			'property' => 'margin',
+		),
+		'bg_radius' => array(
+			'selector' => '> .col-inner',
+			'property' => 'border-radius',
+			'unit'     => 'px',
+		),
+	);
 
-	$column = '<div class="'.$classes.'" '.$tooltip.' '.$animate.'><div class="'.$classes_inner.'" '.get_shortcode_inline_css($css_args).' '.$parallax.'>'.$border_html.''.$content.'</div></div>';
+	$classes          = implode( ' ', $classes );
+	$classes_inner    = implode( ' ', $classes_inner );
+	$attributes       = implode( ' ', array( $tooltip, $animate ) );
+	$attributes_inner = $parallax;
 
-  return flatsome_contentfix($column);
+	ob_start();
+	?>
+
+	<div id="<?php echo $_id; ?>" class="<?php echo esc_attr( $classes ); ?>" <?php echo $attributes; ?>>
+		<div class="<?php echo esc_attr( $classes_inner ); ?>" <?php echo get_shortcode_inline_css( $css_args ); ?> <?php echo $attributes_inner; ?>>
+			<?php require __DIR__ . '/commons/border.php'; ?>
+			<?php echo flatsome_contentfix( $content ); ?>
+		</div>
+		<?php echo ux_builder_element_style_tag( $_id, $args, $atts ); ?>
+	</div>
+
+	<?php
+	return ob_get_clean();
 }
 
 add_shortcode('col', 'ux_col');
@@ -190,3 +230,4 @@ add_shortcode('row_inner_1', 'ux_row');
 add_shortcode('row_inner_2', 'ux_row');
 add_shortcode('background', 'ux_section');
 add_shortcode('section', 'ux_section');
+add_shortcode( 'section_inner', 'ux_section' );

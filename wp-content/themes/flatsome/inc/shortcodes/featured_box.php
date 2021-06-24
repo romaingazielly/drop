@@ -87,7 +87,7 @@ function featured_box( $atts, $content = null ) {
 			<?php if ( $title_small ) { ?><h6><?php echo $title_small; ?></h6><?php } ?>
 			<?php echo flatsome_contentfix( $content ); ?>
 		</div>
-	</div><!-- .icon-box -->
+	</div>
 	<?php if ( $link ) echo '</a>'; ?>
 
 	<?php

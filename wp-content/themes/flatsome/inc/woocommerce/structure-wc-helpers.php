@@ -1,7 +1,6 @@
 <?php
 // Get Product Lists
 function ux_list_products( $args ) {
-	global $post, $woocommerce, $product;
 
 	if ( isset( $args ) ) {
 		$options = $args;
@@ -59,19 +58,12 @@ function ux_list_products( $args ) {
 
 	switch ( $show ) {
 		case 'featured':
-			if ( fl_woocommerce_version_check( '3.0.0' ) ) {
-				$query_args['tax_query'][] = array(
-					'taxonomy' => 'product_visibility',
-					'field'    => 'name',
-					'terms'    => 'featured',
-					'operator' => 'IN',
-				);
-			} else {
-				$query_args['meta_query'][] = array(
-					'key'   => '_featured',
-					'value' => 'yes',
-				);
-			}
+			$query_args['tax_query'][] = array(
+				'taxonomy' => 'product_visibility',
+				'field'    => 'name',
+				'terms'    => 'featured',
+				'operator' => 'IN',
+			);
 			break;
 		case 'onsale':
 			$query_args['post__in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
@@ -163,38 +155,39 @@ function ux_maybe_add_category_args( $query_args, $category, $operator ) {
 }
 
 global $pagenow;
-if ( is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' ) {
+if ( ! get_theme_mod( 'activated_before' ) && is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' ) {
 	/**
 	 * Set Default WooCommerce Image sizes upon theme activation.
 	 */
 	function flatsome_woocommerce_image_dimensions() {
-		$single = array(
-			'width'  => '510', // px
-			'height' => '600', // px
-			'crop'   => 1    // true
+		$single  = array(
+			'width'  => '510',
+			'height' => '600',
+			'crop'   => 1,
 		);
 		$catalog = array(
-			'width'  => '247', // px
-			'height' => '300', // px
-			'crop'   => 1    // true
-		);
-		$thumbnail = array(
-			'width'  => '114', // px
-			'height' => '130', // px
-			'crop'   => 1    // true
+			'width'  => '247',
+			'height' => '300',
+			'crop'   => 1,
 		);
 
-		if ( fl_woocommerce_version_check( '3.3.0' ) ) {
-			update_option( 'woocommerce_single_image_width', $single['width'] );
-			update_option( 'woocommerce_thumbnail_image_width', $catalog['width'] );
-			update_option( 'woocommerce_thumbnail_cropping', 'custom' );
-			update_option( 'woocommerce_thumbnail_cropping_custom_width', 5 );
-			update_option( 'woocommerce_thumbnail_cropping_custom_height', 6 );
-		} else {
-			update_option( 'shop_single_image_size', $single ); // Single product image.
-			update_option( 'shop_catalog_image_size', $catalog ); // Product category thumbs.
-			update_option( 'shop_thumbnail_image_size', $thumbnail ); // Image gallery thumbs.
+		update_option( 'woocommerce_single_image_width', $single['width'] );
+		update_option( 'woocommerce_thumbnail_image_width', $catalog['width'] );
+		update_option( 'woocommerce_thumbnail_cropping', 'custom' );
+		update_option( 'woocommerce_thumbnail_cropping_custom_width', 5 );
+		update_option( 'woocommerce_thumbnail_cropping_custom_height', 6 );
+	}
+
+	add_action( 'init', 'flatsome_woocommerce_image_dimensions', 1 );
+
+	/**
+	 * Set a theme mod to retrieve first activation state from.
+	 */
+	function flatsome_first_activation_state() {
+		if ( ! get_theme_mod( 'activated_before' ) ) {
+			set_theme_mod( 'activated_before', true );
 		}
 	}
-	add_action( 'init', 'flatsome_woocommerce_image_dimensions', 1 );
+
+	add_action( 'shutdown', 'flatsome_first_activation_state' );
 }

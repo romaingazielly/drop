@@ -24,7 +24,6 @@ function flatsome_ux_banner( $atts, $content = null ){
 		'bg_color'           => '',
 		'bg_overlay'         => '',
 		'bg_pos'             => '',
-		'bg_pos_ie'          => '',
 		'effect'             => '',
 		// Video.
 		'video_mp4'          => '',
@@ -104,10 +103,6 @@ function flatsome_ux_banner( $atts, $content = null ){
       $atts['bg_overlay'] = flatsome_hex2rgba($bg_overlay,'0.15');
     }
 
-
-   /* IE fallback */
-   $atts['bg_pos_ie'] = $bg_pos;
-
    /* Full height banner */
    if(strpos($height, '100%') !== false) {
      $classes[] = 'is-full-height';
@@ -147,7 +142,7 @@ function flatsome_ux_banner( $atts, $content = null ){
             <?php if($bg_overlay) echo '<div class="overlay"></div>' ?>
             <?php require( __DIR__ . '/commons/border.php' ) ;?>
             <?php if($effect) echo '<div class="effect-'.$effect.' bg-effect fill no-click"></div>'; ?>
-        </div><!-- bg-layers -->
+        </div>
         <div class="banner-layers <?php if($container_width !== 'full-width') echo 'container'; ?>">
             <?php echo $start_link; ?><div class="fill banner-link"></div><?php echo $end_link; ?>
             <?php
@@ -170,8 +165,8 @@ function flatsome_ux_banner( $atts, $content = null ){
               if($text_bg) $depth = '1';
               echo flatsome_contentfix('[text_box text_align="'.$text_align.'" parallax="'.$parallax_text.'" animate="'.$animation.'" depth="'.$depth.'" padding="'.$padding.'" bg="'.$text_bg.'" text_color="'.$text_color.'" width="'.intval($text_width).'" width__sm="60%" position_y="'.$y.'" position_x="'.$x.'"]'.$content.'[/text_box]');
             } ?>
-        </div><!-- .banner-layers -->
-      </div><!-- .banner-inner -->
+        </div>
+      </div>
 
       <?php
        // Add invisible image if height is not set.
@@ -205,7 +200,7 @@ function flatsome_ux_banner( $atts, $content = null ){
         );
         echo ux_builder_element_style_tag($_id, $args, $atts);
       ?>
-  </div><!-- .banner -->
+  </div>
 
 <?php
   $content = ob_get_contents();

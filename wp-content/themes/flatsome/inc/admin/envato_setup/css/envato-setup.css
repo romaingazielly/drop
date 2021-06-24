@@ -45,7 +45,8 @@ body {
     margin: 30px auto 24px;
     box-shadow: none;
     background: #f1f1f1;
-    padding: 0
+    padding: 0;
+    border: 0;
 }
 
 #wc-logo {
@@ -88,6 +89,16 @@ body {
 
 .envato-setup-content a:focus, .envato-setup-content a:hover {
     color: #111
+}
+
+.envato-setup-content .notice {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.envato-setup-content .notice p:last-child {
+    margin-bottom: 0;
 }
 
 .envato-setup-content .form-table th {
@@ -444,7 +455,13 @@ body {
     padding: .5em 1em;
     line-height: 1em;
     margin-right: .5em;
-    height: auto
+    height: auto;
+    box-shadow: none;
+}
+
+.envato-setup .envato-setup-actions .button.disabled {
+    pointer-events: none;
+    opacity: .5;
 }
 
 .envato-setup .envato-setup-actions .button-primary {

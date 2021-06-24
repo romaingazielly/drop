@@ -11,9 +11,39 @@ Flatsome_Option::add_field( 'option',
 	array(
 		'type'     => 'checkbox',
 		'settings' => 'disable_fonts',
-		'label'    => __( 'Disable google fonts. No fonts will be loaded from Google.', 'flatsome-admin' ),
+		'label'    => __( 'Disable Google Fonts. No fonts will be loaded from Google.', 'flatsome-admin' ),
 		'section'  => 'type',
 		'default'  => 0,
+	)
+);
+
+Flatsome_Option::add_field( 'option',
+	array(
+		'type'            => 'select',
+		'settings'        => 'googlefonts_font_display',
+		'label'           => __( 'Google Fonts font-display type', 'flatsome-admin' ),
+		'description'     => 'Choose how Google Fonts will be loaded.',
+		'tooltip'         => '<ul>
+								<li><span style="font-weight: bold">block</span> flash of invisible text until the font loads</li>
+								<li><span style="font-weight: bold">swap</span> fallback font until custom font loads (flash of unstyled text)</li>
+								<li><span style="font-weight: bold">fallback</span> between block and swap, invisible text for a short time</li>
+								<li><span style="font-weight: bold">optional</span> like fallback, but the browser can decide to not use the custom font</li>
+							</ul>',
+		'section'         => 'type',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
+		'default'         => 'swap',
+		'choices'         => array(
+			'block'    => __( 'Block', 'flatsome-admin' ),
+			'swap'     => __( 'Swap', 'flatsome-admin' ),
+			'fallback' => __( 'Fallback', 'flatsome-admin' ),
+			'optional' => __( 'Optional', 'flatsome-admin' ),
+		),
 	)
 );
 
@@ -24,6 +54,13 @@ Flatsome_Option::add_field( '',
 		'label'    => __( '', 'flatsome-admin' ),
 		'section'  => 'type',
 		'default'  => '<div class="options-title-divider">Headlines</div>',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -38,6 +75,13 @@ Flatsome_Option::add_field( 'option',
 			'font-family' => 'Lato',
 			'variant'     => '700',
 		),
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -49,6 +93,13 @@ Flatsome_Option::add_field( '',
 		'label'    => __( '', 'flatsome-admin' ),
 		'section'  => 'type',
 		'default'  => '<div class="options-title-divider">Base</div>',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -61,6 +112,13 @@ Flatsome_Option::add_field( 'option',
 		'default'  => array(
 			'font-family' => 'Lato',
 			'variant'     => '400',
+		),
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
 		),
 	)
 );
@@ -79,6 +137,13 @@ Flatsome_Option::add_field( 'option',
 			'step' => 1,
 		),
 		'transport'   => 'postMessage',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -96,6 +161,13 @@ Flatsome_Option::add_field( 'option',
 			'step' => 1,
 		),
 		'transport'   => 'postMessage',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -106,6 +178,13 @@ Flatsome_Option::add_field( '',
 		'label'    => __( '', 'flatsome-admin' ),
 		'section'  => 'type',
 		'default'  => '<div class="options-title-divider">Navigation</div>',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -119,6 +198,13 @@ Flatsome_Option::add_field( 'option',
 			'font-family' => 'Lato',
 			'variant'     => '700',
 		),
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -129,6 +215,13 @@ Flatsome_Option::add_field( '',
 		'label'    => __( '', 'flatsome-admin' ),
 		'section'  => 'type',
 		'default'  => '<div class="options-title-divider">Alt Fonts</div>',
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
+		),
 	)
 );
 
@@ -142,6 +235,13 @@ Flatsome_Option::add_field( 'option',
 		'default'     => array(
 			'font-family' => 'Dancing Script',
 			'variant'     => '400',
+		),
+		'active_callback' => array(
+			array(
+				'setting'  => 'disable_fonts',
+				'operator' => '==',
+				'value'    => false,
+			),
 		),
 	)
 );

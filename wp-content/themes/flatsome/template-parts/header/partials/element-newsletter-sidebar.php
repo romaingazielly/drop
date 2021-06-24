@@ -10,6 +10,6 @@
     <span class="header-newsletter-title">
       <?php echo $label; ?>
     </span>
-  </a><!-- .newsletter-link -->
+  </a>
 
 </li>

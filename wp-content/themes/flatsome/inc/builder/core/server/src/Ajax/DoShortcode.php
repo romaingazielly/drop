@@ -5,18 +5,11 @@ namespace UxBuilder\Ajax;
 class DoShortcode {
 
   public function do_shortcode() {
-    $action = $_POST['ux_builder_action'];
     $shortcode = wp_parse_args( $_POST['ux_builder_shortcode'], array(
       'tag' => '', '$id' => '', 'options' => array()
     ) );
 
-    // Workaround for using the global WooCommerce product object.
-    // TODO: Find out why it is converted to a string.
-    if ( function_exists( 'wc_get_product' ) &&
-        array_key_exists( 'product', $GLOBALS ) &&
-        ! is_object( $GLOBALS['product'] ) ) {
-        $GLOBALS['product'] = wc_get_product( get_the_ID() );
-    }
+    setup_postdata( get_the_ID() );
 
     // Get current shortcode data.
     $current_shortcode = ux_builder_shortcodes()->get( $shortcode['tag'] );
@@ -27,7 +20,7 @@ class DoShortcode {
         $shortcode['children'] = array( array(
             'tag' => 'text',
             'options' => array(),
-            'content' => '<content/>',
+            'content' => '<content></content>',
         ) );
     }
 

@@ -1,0 +1,1060 @@
+2021-06-22T22:52:22+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => be872019f093d7229558af69bcd4c1ea
+            [Date] => 22 Juin 2021 @ 22:52
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/order/created/c396ff48metg0090qsm0
+            [Duration] => 2.52039
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => order.created
+                            [X-WC-Webhook-Resource] => order
+                            [X-WC-Webhook-Event] => created
+                            [X-WC-Webhook-Signature] => v+BuPqDdHYHztSB7+vnVT7NcKUiUkuaP9DBeL6Dv4qA=
+                            [X-WC-Webhook-ID] => 1
+                            [X-WC-Webhook-Delivery-ID] => be872019f093d7229558af69bcd4c1ea
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 22:52:21 GMT
+                                    [via] => cache16.l2nu20-8[1375,0], cache6.de2[2130,0], cache5.fr1[2141,0]
+                                    [timing-allow-origin] => *, *
+                                    [eagleid] => 2ff6329916244023398534445e, 2ff6329916244023398534445e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T22:52:22+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 9a1dd81988abeca7efc7cdc99a3c19e0
+            [Date] => 22 Juin 2021 @ 22:52
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/order/updated/c396ff48metg0090qsm0
+            [Duration] => 0.58438
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => order.updated
+                            [X-WC-Webhook-Resource] => order
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => HO2q4chyD0RGO5Anb3CgNs7va5mjSfRwU2qhlIr7qZU=
+                            [X-WC-Webhook-ID] => 2
+                            [X-WC-Webhook-Delivery-ID] => 9a1dd81988abeca7efc7cdc99a3c19e0
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 22:52:22 GMT
+                                    [via] => cache4.l2nu20-8[87,0], cache3.de2[265,0], cache1.fr1[274,0]
+                                    [timing-allow-origin] => *, *
+                                    [eagleid] => 2ff6329516244023423101568e, 2ff6329516244023423101568e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T22:52:23+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 8d3322306193ab3911d620fd02f01701
+            [Date] => 22 Juin 2021 @ 22:52
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.45534
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => aMDuTwavU0HnUCTBcrV4GLoi82i7i0f6oNqCG1qxmoE=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 8d3322306193ab3911d620fd02f01701
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 22:52:22 GMT
+                                    [via] => cache6.l2cn1850[123,0], cache6.fr1[300,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329a16244023427445510e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T22:55:59+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 525350e30130605ddc0494f27878b9ee
+            [Date] => 22 Juin 2021 @ 22:55
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/order/deleted/c396ff48metg0090qsm0
+            [Duration] => 0.80229
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => order.deleted
+                            [X-WC-Webhook-Resource] => order
+                            [X-WC-Webhook-Event] => deleted
+                            [X-WC-Webhook-Signature] => wbz6oHG7g2pvxkhsfwNs2oJ1W0zh6DIAGHDXtTqcb4M=
+                            [X-WC-Webhook-ID] => 3
+                            [X-WC-Webhook-Delivery-ID] => 525350e30130605ddc0494f27878b9ee
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 22:55:59 GMT
+                                    [via] => cache20.l2cn1850[183,0], cache7.fr1[345,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329b16244025593421992e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T22:57:34+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 0ae52829f8e29c7bbf7709ac5ffeb8d5
+            [Date] => 22 Juin 2021 @ 22:57
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.65608
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => m54eGfSj1+bA3PGUjWMA942tBXz9dWVJ4jW3T21mOa8=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 0ae52829f8e29c7bbf7709ac5ffeb8d5
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 22:57:34 GMT
+                                    [via] => cache64.l2cn1850[152,0], cache7.fr1[312,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329b16244026545705466e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:03:13+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => a30163cc0391943c0e1af5157ac2b06c
+            [Date] => 22 Juin 2021 @ 23:03
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.6247
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => G23MRoQjfztX3SMlfCi/G7xEL93ervvK830bNKPAskA=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => a30163cc0391943c0e1af5157ac2b06c
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:03:13 GMT
+                                    [via] => cache77.l2cn1850[55,0], cache9.fr1[217,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329d16244029937075601e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:04:51+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 13ba22f3aa21fde5be5f204ef7999e2f
+            [Date] => 22 Juin 2021 @ 23:04
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.77735
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => Z5xv8SI17JMxm7xQTffVhVI6VRR8Amj/usxjkv791FE=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 13ba22f3aa21fde5be5f204ef7999e2f
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:04:51 GMT
+                                    [via] => cache71.l2cn1850[167,0], cache1.fr1[341,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329516244030912364941e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:05:39+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 5fc0f23e7a3e34b5aa22f3e9f67574eb
+            [Date] => 22 Juin 2021 @ 23:05
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 1.07281
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => O24GkOzb+Ry1i9GKaHMCGu/xpV7w0eM42ZZ7+gWVToI=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 5fc0f23e7a3e34b5aa22f3e9f67574eb
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:05:39 GMT
+                                    [via] => cache66.l2cn1850[634,0], cache5.fr1[817,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329916244031385033396e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:06:28+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 9052bcc354c89d3ff67ab6e82b45513b
+            [Date] => 22 Juin 2021 @ 23:06
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/deleted/c396ff48metg0090qsm0
+            [Duration] => 1.27513
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.deleted
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => deleted
+                            [X-WC-Webhook-Signature] => m3tKegGNKJP/BBnfYE1NZ7rFi1yqrPkEW2DoWr5wjXs=
+                            [X-WC-Webhook-ID] => 5
+                            [X-WC-Webhook-Delivery-ID] => 9052bcc354c89d3ff67ab6e82b45513b
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:06:27 GMT
+                                    [via] => cache48.l2cn1850[204,0], cache4.fr1[396,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329816244031876073606e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:10:18+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 25be3c91cd1bdc9d98a96d563b333a64
+            [Date] => 22 Juin 2021 @ 23:10
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.79338
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => H3PRsx1i/vV/gkeFNl0pyhN9zpoSBMFrVhAbaSu/k48=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 25be3c91cd1bdc9d98a96d563b333a64
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:10:18 GMT
+                                    [via] => cache17.l2cn1850[173,0], cache9.fr1[336,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329d16244034180832192e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:10:41+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 1ff3baa75e1a7834c539139e51442ab6
+            [Date] => 22 Juin 2021 @ 23:10
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.64184
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => GhrGHW+nMma3LJNJHQZNFqa/1iS16/0GzZxsgdnYB80=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 1ff3baa75e1a7834c539139e51442ab6
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:10:41 GMT
+                                    [via] => cache47.l2cn1850[175,0], cache2.fr1[339,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329616244034408038884e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:12:29+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => c14c046794024dd15c879e78e3465c95
+            [Date] => 22 Juin 2021 @ 23:12
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.78509
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => UW3IB5j5up3FnGoQo3LrJcPjY1GQA9iiiHyOke1I7os=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => c14c046794024dd15c879e78e3465c95
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:12:29 GMT
+                                    [via] => cache4.l2cn1850[207,0], cache2.fr1[373,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329616244035495293039e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:21+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 92b930917b177794d60ee8bd054bbe1e
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 1.04314
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => ZAoppYJser8aCIHQ86LUyEX3C3e3sPa94XkhwnGC16E=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 92b930917b177794d60ee8bd054bbe1e
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:21 GMT
+                                    [via] => cache68.l2cn1850[156,0], cache7.fr1[318,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329b16244039612208319e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:21+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 4ac12f09cf7f2d2ce89a2de20d373cb8
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.36716
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => Igt8aBE2oxtf+hSR0yKhrFl5ol4+OAFpvnJRNF+gSx0=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 4ac12f09cf7f2d2ce89a2de20d373cb8
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:21 GMT
+                                    [via] => cache69.l2cn1850[51,0], cache1.fr1[214,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329516244039616941701e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:22+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 4ac12f09cf7f2d2ce89a2de20d373cb8
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.60782
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => p/2yblTABi9BCWEEOMjpc1MDwmSmz8I4jW7ytYYWT/A=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 4ac12f09cf7f2d2ce89a2de20d373cb8
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:22 GMT
+                                    [via] => cache50.l2cn1850[180,0], cache4.fr1[354,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329816244039621678664e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:22+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 9edf0fa4e4b7f5688ed406b9eab7d0e9
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.43778
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => aa6qR+YPVGKAR8GIKAaZnjMobkLCqsOpooJ7ns5oqbs=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 9edf0fa4e4b7f5688ed406b9eab7d0e9
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:22 GMT
+                                    [via] => cache34.l2cn1850[174,0], cache7.fr1[357,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329b16244039626131981e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:23+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 9ffd782016f552c5decb2c0f82e15898
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.52885
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => QIFOD9KBsRapghy8czsP0AiiWDL4yCa4tOMvCLyf3WQ=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 9ffd782016f552c5decb2c0f82e15898
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:23 GMT
+                                    [via] => cache78.l2cn1850[131,0], cache6.fr1[299,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329a16244039631981247e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:24+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 9ffd782016f552c5decb2c0f82e15898
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.46591
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => qaZxuXzSHhZGAfsopeGOM5LBKJgPhD0PLPCUz9MLOCk=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 9ffd782016f552c5decb2c0f82e15898
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:23 GMT
+                                    [via] => cache51.l2cn1850[125,0], cache7.fr1[324,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329b16244039636523197e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:19:24+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 33469cda262966c0ddf034d01bd898ef
+            [Date] => 22 Juin 2021 @ 23:19
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.42601
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => eSrZGclSoaaGcdYHD/PKZmh6H3T7JOiaA+H5yaEGq9Y=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 33469cda262966c0ddf034d01bd898ef
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:19:24 GMT
+                                    [via] => cache71.l2cn1850[181,0], cache1.fr1[354,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329516244039640504715e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+
+2021-06-22T23:21:01+00:00 INFO Array
+(
+    [Webhook Delivery] => Array
+        (
+            [Delivery ID] => 3224ee3529d94af04fd6290700bc84e2
+            [Date] => 22 Juin 2021 @ 23:21
+            [URL] => https://woo-hook-pro.dsers.com/hook/woo/product/updated/c396ff48metg0090qsm0
+            [Duration] => 0.74375
+            [Request] => Array
+                (
+                    [Method] => POST
+                    [Headers] => Array
+                        (
+                            [User-Agent] => WooCommerce/5.4.1 Hookshot (WordPress/5.7.2)
+                            [Content-Type] => application/json
+                            [X-WC-Webhook-Source] => https://ergophone.fr/
+                            [X-WC-Webhook-Topic] => product.updated
+                            [X-WC-Webhook-Resource] => product
+                            [X-WC-Webhook-Event] => updated
+                            [X-WC-Webhook-Signature] => +IyZzI/3gr/sr42tKVK7mJlOqR+//x1R5t7oaXWVQqA=
+                            [X-WC-Webhook-ID] => 4
+                            [X-WC-Webhook-Delivery-ID] => 3224ee3529d94af04fd6290700bc84e2
+                        )
+
+                )
+
+            [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+            [Response] => Array
+                (
+                    [Code] => 200
+                    [Message] => OK
+                    [Headers] => Requests_Utility_CaseInsensitiveDictionary Object
+                        (
+                            [data:protected] => Array
+                                (
+                                    [server] => Tengine
+                                    [content-type] => application/octet-stream
+                                    [content-length] => 0
+                                    [date] => Tue, 22 Jun 2021 23:21:01 GMT
+                                    [via] => cache25.l2cn1850[130,0], cache4.fr1[293,0]
+                                    [timing-allow-origin] => *
+                                    [eagleid] => 2ff6329816244040614025357e
+                                )
+
+                        )
+
+                    [Body] => Webhook body is not logged unless WP_DEBUG mode is turned on. This is to avoid the storing of personal data in the logs.
+                )
+
+        )
+
+)
+

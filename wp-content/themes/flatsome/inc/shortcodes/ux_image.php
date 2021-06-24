@@ -10,6 +10,8 @@ function ux_image( $atts, $content = null ) {
 		'animate'         => '',
 		'animate_delay'   => '',
 		'lightbox'        => '',
+		'lightbox_image_size' => 'large',
+		'lightbox_caption'    => '',
 		'height'          => '',
 		'image_overlay'   => '',
 		'image_hover'     => '',
@@ -56,11 +58,11 @@ function ux_image( $atts, $content = null ) {
 
 	if ( is_numeric( $id ) ) {
 		if ( ! $org_img ) {
-			$org_img = wp_get_attachment_image_src( $id, 'large' );
-			$org_img = $org_img[0];
+			$org_img = wp_get_attachment_image_src( $id, $lightbox_image_size );
+			$org_img = $org_img ? $org_img[0] : '';
 		}
 		if ( $caption && $caption == 'true' ) {
-			$caption = $image_meta['caption'];
+			$caption = is_array( $image_meta ) ? $image_meta['caption'] : '';
 		}
 	} else {
 		if ( ! $org_img ) {
@@ -84,7 +86,8 @@ function ux_image( $atts, $content = null ) {
 		$link_start = '<a class="' . $link_class . '" href="' . $link . '"' . flatsome_parse_target_rel( $link_atts ) . '>';
 		$link_end   = '</a>';
 	} elseif ( $lightbox ) {
-		$link_start = '<a class="image-lightbox lightbox-gallery" href="' . $org_img . '" title="' . $caption . '">';
+		$title      = $lightbox_caption ? $image_meta['caption'] : '';
+		$link_start = '<a class="image-lightbox lightbox-gallery" title="' . esc_attr( $title ) . '" href="' . $org_img . '">';
 		$link_end   = '</a>';
 	}
 

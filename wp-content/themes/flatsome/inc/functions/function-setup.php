@@ -4,7 +4,14 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 1020; // Pixels.
 }
 
+/**
+ * Initialized Envato implementation.
+ */
+flatsome_envato()->init();
 
+/**
+ * Setup Flatsome.
+ */
 function flatsome_setup() {
 
 	/* add woocommerce support */
@@ -128,7 +135,9 @@ function flatsome_scripts() {
 	}
 
 	// Load current theme styles.css file.
-	wp_enqueue_style( 'flatsome-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ), 'all' );
+	if ( ! get_theme_mod( 'flatsome_disable_style_css', 0 ) ) {
+		wp_enqueue_style( 'flatsome-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ), 'all' );
+	}
 
 	// Register styles (Loaded on request).
 	wp_register_style( 'flatsome-effects', $uri . '/assets/css/effects.css', array(), $version, 'all' );
@@ -155,14 +164,25 @@ function flatsome_scripts() {
 		$sticky_height = $sticky_height + 30;
 	}
 
+	$lightbox_close_markup = apply_filters('flatsome_lightbox_close_button', '<button title="%title%" type="button" class="mfp-close"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>');
+
 	// Add variables to scripts.
 	wp_localize_script( 'flatsome-js', 'flatsomeVars', array(
 		'ajaxurl'       => admin_url( 'admin-ajax.php' ),
 		'rtl'           => is_rtl(),
 		'sticky_height' => $sticky_height,
+		'lightbox'      => array(
+			'close_markup'     => $lightbox_close_markup,
+			'close_btn_inside' => apply_filters( 'flatsome_lightbox_close_btn_inside', false ),
+		),
 		'user'          => array(
-			'can_edit_pages' => current_user_can( 'edit_pages'
-			),
+			'can_edit_pages' => current_user_can( 'edit_pages' ),
+		),
+		'i18n'          => array(
+			'mainMenu' => __( 'Main Menu', 'flatsome' ),
+		),
+		'options'       => array(
+			'cookie_notice_version' => get_theme_mod( 'cookie_notice_version', '1' ),
 		),
 	) );
 
@@ -173,6 +193,10 @@ function flatsome_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	// Custom Properties polyfill for Internet Explorer.
+	wp_register_script( 'css-vars-polyfill', 'https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.0.1/ie11CustomProperties.min.js', array(), '4.0.1', true );
+	wp_script_add_data( 'css-vars-polyfill', 'conditional', 'IE' );
 }
 
 add_action( 'wp_enqueue_scripts', 'flatsome_scripts', 100 );
@@ -226,3 +250,36 @@ if ( ! is_admin() && get_theme_mod( 'lazy_load_backgrounds', 1 ) ) {
 
 	add_filter( 'wp_head', 'flatsome_lazy_load_backgrounds_css' );
 }
+
+/**
+ * Remove jQuery migrate.
+ *
+ * @param WP_Scripts $scripts WP_Scripts object.
+ */
+function flatsome_remove_jquery_migrate( $scripts ) {
+	if ( ! get_theme_mod( 'jquery_migrate' ) ) return;
+	if ( ! is_admin() && isset( $scripts->registered['jquery'] ) ) {
+		$script = $scripts->registered['jquery'];
+
+		if ( $script->deps ) { // Check whether the script has any dependencies.
+			$script->deps = array_diff( $script->deps, array(
+				'jquery-migrate',
+			) );
+		}
+	}
+}
+
+add_action( 'wp_default_scripts', 'flatsome_remove_jquery_migrate' );
+
+// Disable emoji scripts
+if ( ! is_admin() && get_theme_mod( 'disable_emoji', 0 ) ) {
+	remove_action('wp_head', 'print_emoji_detection_script', 7);
+	remove_action('wp_print_styles', 'print_emoji_styles');
+}
+
+function flatsome_deregister_block_styles() {
+	if ( ! is_admin() && get_theme_mod( 'disable_blockcss', 0 ) ) {
+    wp_dequeue_style( 'wp-block-library' );
+  }
+}
+add_action( 'wp_print_styles', 'flatsome_deregister_block_styles', 100 );

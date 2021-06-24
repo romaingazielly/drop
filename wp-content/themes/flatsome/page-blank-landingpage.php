@@ -8,8 +8,6 @@ Template name: Page - No Header / No Footer
 <!--[if (gte IE 9)|!(IE)]><!--><html <?php language_attributes(); ?>> <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
@@ -26,9 +24,9 @@ Template name: Page - No Header / No Footer
 		<?php the_content(); ?>
 	<?php endwhile; // end of the loop. ?>
 
-	</div><!-- #main -->
+	</div>
 
-</div><!-- #wrapper -->
+</div>
 <?php do_action( 'flatsome_after_page' ); ?>
 
 <?php wp_footer(); ?>

@@ -7,13 +7,51 @@ Flatsome_Option::add_section( 'fl-my-account', array(
 	'panel' => 'woocommerce'
 ) );
 
+Flatsome_Option::add_field( 'option', array(
+	'type'      => 'color-alpha',
+	'alpha'     => true,
+	'settings'  => 'my_account_title_bg_color',
+	'label'     => __( 'Title Background Color', 'flatsome-admin' ),
+	'section'   => 'fl-my-account',
+	'default'   => '',
+	'transport' => $transport,
+));
+
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'image',
 	'settings'     => 'facebook_login_bg',
-	'label'       => __( 'Title background', 'flatsome-admin' ),
+	'label'       => __( 'Title Background Image', 'flatsome-admin' ),
 	'section'     => 'fl-my-account',
 	'transport' => $transport,
 	'default'     => ''
+));
+
+Flatsome_Option::add_field( 'option', array(
+	'type'        => 'radio-image',
+	'settings'    => 'my_account_title_align',
+	'label'       => __( 'Title Align', 'flatsome-admin' ),
+	'description' => __( 'For logged in users only.', 'flatsome-admin' ),
+	'section'     => 'fl-my-account',
+	'default'     => 'left',
+	'transport'   => $transport,
+	'choices'     => array(
+		'left'   => $image_url . 'align-left.svg',
+		'center' => $image_url . 'align-center.svg',
+		'right'  => $image_url . 'align-right.svg',
+	),
+));
+
+Flatsome_Option::add_field( 'option', array(
+	'type'      => 'radio-image',
+	'settings'  => 'my_account_title_text_color',
+	'label'     => __( 'Text color', 'flatsome-admin' ),
+	'section'   => 'fl-my-account',
+	'default'   => 'dark',
+	'transport' => $transport,
+	'choices'   => array(
+		'light' => $image_url . 'text-light.svg',
+		'dark'  => $image_url . 'text-dark.svg',
+	),
 ));
 
 Flatsome_Option::add_field( 'option',  array(

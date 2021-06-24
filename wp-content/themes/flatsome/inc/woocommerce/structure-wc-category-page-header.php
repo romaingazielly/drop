@@ -7,11 +7,9 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 )
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 
-if ( fl_woocommerce_version_check( '3.3.0' ) ) {
-	/** $GLOBALS['woocommerce_loop'] will not be set in time otherwise. */
-	remove_action( 'woocommerce_before_shop_loop', 'wc_setup_loop' );
-	add_action( 'flatsome_category_title_alt', 'wc_setup_loop' );
-}
+/** $GLOBALS['woocommerce_loop'] will not be set in time otherwise. */
+remove_action( 'woocommerce_before_shop_loop', 'wc_setup_loop' );
+add_action( 'flatsome_category_title_alt', 'wc_setup_loop' );
 
 add_action( 'flatsome_category_title_alt', 'woocommerce_result_count', 20 );
 add_action( 'flatsome_category_title_alt', 'woocommerce_catalog_ordering', 30 );

@@ -18,16 +18,20 @@
 			<div id="of-nav">
 
 				<div class="logo">
-				<h3>Advanced Options<span><?php echo ('Version: '. THEMEVERSION); ?></span></h3>
+					<h3>Flatsome <br/>Advanced Options<span><?php echo ('Version: '. THEMEVERSION); ?></span></h3>
 				</div>
-						<div class="save_bar"> 
+					<div class="save_bar"> 
 						<button id ="of_save" type="button" class="button-primary"><?php _e('Save All Changes', 'flatsome-admin');?></button>			
 						<img style="display:none" src="<?php echo ADMIN_DIR; ?>assets/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
-			
+		
 					</div><!--.save_bar--> 
 				<ul>
 				  <?php echo $options_machine->Menu ?>
 				</ul>
+
+				<div style="padding:18px">
+					<a href="<?php echo get_admin_url().'customize.php'; ?>" class="button-secondary">Theme Options &rarr;</a>
+				</div>
 
 				<?php if(function_exists('pll_get_post')) { 
 					$url = get_admin_url().'options-general.php?page=mlang&tab=strings';

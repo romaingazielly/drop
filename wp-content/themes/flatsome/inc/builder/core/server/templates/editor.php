@@ -2,7 +2,7 @@
   global $ux_builder_styles, $ux_builder_scripts;
 
   $editing = ux_builder( 'editing-post' );
-  $title = __( 'UX Builder', 'uxbuilder' );
+  $title = __( 'UX Builder', 'ux-builder' );
 
   if ( $editing ) $title .= ' &raquo; ' . $editing->post()->post_title;
 
@@ -18,7 +18,6 @@
 <body>
   <app></app>
   <app-loader></app-loader>
-  <app-stack></app-stack>
   <draggable-helper></draggable-helper>
   <context-menu></context-menu>
   <flatsome-studio></flatsome-studio>

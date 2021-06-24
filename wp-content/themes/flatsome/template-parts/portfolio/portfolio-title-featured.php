@@ -13,5 +13,5 @@
 			<h1 class="entry-title is-xlarge uppercase"><?php the_title(); ?></h1>
 			<?php do_action('flatsome_portfolio_title_after'); ?>
 	 	</div>
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

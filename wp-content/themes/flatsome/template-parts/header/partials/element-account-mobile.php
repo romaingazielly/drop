@@ -4,6 +4,6 @@
 	<a href="<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>"
 	class="account-link-mobile <?php echo get_flatsome_icon_class($icon_style, 'small');?>" title="<?php _e('My account', 'woocommerce'); ?>">
 	  <?php echo get_flatsome_icon('icon-user'); ?>
-	</a><!-- .account-link -->
+	</a>
 <?php if($icon_style && $icon_style !== 'image' && $icon_style !== 'plain') echo '</div>'; ?>
 </li>

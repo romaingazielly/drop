@@ -18,11 +18,21 @@ require_once( ABSPATH . 'wp-admin/admin.php' );
 wp_user_settings();
 wp_enqueue_style( 'colors' );
 wp_enqueue_style( 'ie' );
-wp_enqueue_script('utils');
+wp_enqueue_script( 'utils' );
 wp_enqueue_script( 'svg-painter' );
 
 global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow,
-  $update_title, $total_update_count, $parent_file;
+  $update_title, $total_update_count, $parent_file, $post_type, $post_type_object, $post;
+
+if ( isset( $_GET['post'] ) ) {
+  $post_id = (int) $_GET['post'];
+  if ( empty( $post ) && $post_id ) {
+    if ( $post = get_post( $post_id ) ) {
+      $post_type        = $post->post_type;
+      $post_type_object = get_post_type_object( $post_type );
+    }
+  }
+}
 
 ?><!DOCTYPE html>
 <html>
@@ -66,6 +76,7 @@ global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow,
     #wp-uxbuilder-editor-container .mce-panel,
     #wp-uxbuilder-editor-container .mce-stack-layout {
       height: 100%;
+      min-height: 20px;
     }
     #wp-uxbuilder-editor-container .mce-edit-area {
       flex: 1;
@@ -102,6 +113,7 @@ global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow,
     }
     .wp-editor-tools .wp-media-buttons .dashicons {
       display: inline-block;
+      margin-top: 10px;
       margin-right: 5px;
       width: 18px;
       height: 18px;
@@ -181,6 +193,13 @@ global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow,
       }
     }, false);
 
+    document.addEventListener('keydown', function (event) {
+      if (event.keyCode === 27) {
+        parent.postMessage({ source: source, type: 'hide' }, '*');
+        event.preventDefault();
+      }
+    });
+
     function onTextAreaChange (event) {
       parent.postMessage({
         source: source,
@@ -191,6 +210,11 @@ global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow,
 
     function onEditorChange (event) {
       var content = editor.getContent();
+
+      if (event.type === 'keyup' && event.keyCode === 27) {
+        parent.postMessage({ source: source, type: 'hide' }, '*');
+        return;
+      }
 
       if (content === prevContent) {
         return;

@@ -50,7 +50,7 @@ function flatsome_contact_form_presets($args){
     </textarea>
 
 
-    </div><!-- .metabox-holder -->
+    </div>
  	<?php
 }
 

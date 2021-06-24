@@ -64,9 +64,9 @@ function flatsome_banner_grid($atts, $content = null) {
               }
             }
           ?>
-  </div><!-- .banner-grid .row .grid -->
+  </div>
   <?php flatsome_get_grid_height(array($height, $height__md, $height__sm), $_id); ?>
-  </div><!-- .banner-grid-wrapper -->
+  </div>
   <?php
   // Get banner grid styles
   $content = ob_get_contents();

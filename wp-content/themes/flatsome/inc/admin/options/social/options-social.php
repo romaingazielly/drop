@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Add our controls.
@@ -52,7 +52,6 @@ Flatsome_Option::add_field( 'option',  array(
 			'twitter',
 			'email',
 			'pinterest',
-			'googleplus',
 			'whatsapp',
 			'tumblr'
 		),
@@ -62,7 +61,6 @@ Flatsome_Option::add_field( 'option',  array(
 			"twitter" => "Twitter",
 			"email" => "Email",
 			"pinterest" => "Pinterest",
-			"googleplus" => "Google Plus",
 			"vk" => "VKontakte",
 			"tumblr" => "Tumblr",
 			"whatsapp" => "WhatsApp (Only for Mobile)",
@@ -144,17 +142,14 @@ Flatsome_Option::add_field( 'option',  array(
 	'default'     => '',
 ));
 
-Flatsome_Option::add_field( 'option',  array(
-	'type'        => 'text',
-	'settings'     => 'follow_google',
-	'label'       => __( 'Google +', 'flatsome-admin' ),
+Flatsome_Option::add_field( 'option', array(
+	'type'      => 'text',
+	'settings'  => 'follow_tiktok',
+	'label'     => __( 'TikTok', 'flatsome-admin' ),
 	'transport' => $transport,
-	//'description' => __( 'Add Any HTML or Shortcode here...', 'flatsome-admin' ),
-	//'help'        => __( 'This is some extra help. You can use this to add some additional instructions for users. The main description should go in the "description" of the field, this is only to be used for help tips.', 'flatsome-admin' ),
-	'section'     => 'follow',
-	'default'     => '',
-));
-
+	'section'   => 'follow',
+	'default'   => '',
+) );
 
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'text',
@@ -250,7 +245,7 @@ function flatsome_refresh_social( WP_Customize_Manager $wp_customize ) {
 
 	  $wp_customize->selective_refresh->add_partial( 'follow_icons', array(
 	    'selector' => '.follow-icons',
-	    'settings' => array('follow_google','follow_linkedin','follow_flickr','follow_email','follow_phone','follow_style','follow_facebook','follow_twitter','follow_instagram','follow_rss','follow_vk','follow_youtube','follow_pinterest','follow_snapchat','follow_500px'),
+	    'settings' => array('follow_linkedin','follow_flickr','follow_email','follow_phone','follow_style','follow_facebook','follow_twitter','follow_instagram','follow_tiktok','follow_rss','follow_vk','follow_youtube','follow_pinterest','follow_snapchat','follow_500px'),
 	    'container_inclusive' => true,
 	    'render_callback' => function() {
 	        return do_shortcode('[follow defaults="true" style="'.flatsome_option('follow_style').'"]');

@@ -1,6 +1,6 @@
 <?php
 // [map]
-function flatsome_shortcode_map($atts, $content=null, $code) {
+function flatsome_shortcode_map( $atts, $content = null, $tag = '' ) {
 
 	$atts = shortcode_atts(array(
     '_id' => 'map-'.rand(),
@@ -124,7 +124,7 @@ function flatsome_shortcode_map($atts, $content=null, $code) {
       return
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+    initialize()
     google.maps.event.addDomListener(window, 'resize', initialize);
     });
     </script>
@@ -158,7 +158,7 @@ function flatsome_shortcode_map($atts, $content=null, $code) {
           );
           echo ux_builder_element_style_tag($_id, $args, $atts);
         ?>
-    </div><!-- .map -->
+    </div>
 
 	<?php
 	$content = ob_get_contents();

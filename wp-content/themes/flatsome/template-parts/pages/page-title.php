@@ -6,5 +6,5 @@
 	 	<div class="flex-col">
 	 		<h1 class="page-title uppercase mb-0"><?php echo get_the_title() ?></h1>
 	 	</div>
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

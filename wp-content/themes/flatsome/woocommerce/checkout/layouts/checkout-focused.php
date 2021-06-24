@@ -5,14 +5,11 @@
 <html <?php language_attributes(); ?>> <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
 	<link rel="profile" href="http://gmpg.org/xfn/11"/>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>"/>
 
 	<?php wp_head(); ?>
 </head>
-<!-- loading -->
 
 <body <?php body_class(); ?>>
 
@@ -42,20 +39,19 @@
 
 				<?php endwhile; // end of the loop. ?>
 
-			</div><!-- end #content large-12 -->
-		</div><!-- end row -->
+			</div>
+		</div>
 
-	</div><!-- end page-right-sidebar container -->
+	</div>
 
 	<div class="focused-checkout-footer">
 		<?php get_template_part( 'template-parts/footer/footer', 'absolute' ); ?>
 	</div>
 
-</div><!-- #main-content -->
+</div>
 
-</div><!-- #wrapper -->
+</div>
 
-<!-- back to top -->
 <?php wp_footer(); ?>
 
 </body>

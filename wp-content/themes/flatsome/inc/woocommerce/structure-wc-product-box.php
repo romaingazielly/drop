@@ -50,7 +50,7 @@ if ( ! function_exists( 'flatsome_woocommerce_get_alt_product_thumbnail' ) ) {
 		}
 
 		global $product;
-		$attachment_ids = fl_woocommerce_version_check( '3.0.0' ) ? $product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
+		$attachment_ids = $product->get_gallery_image_ids();
 		$class          = 'show-on-hover absolute fill hide-for-small back-image';
 		if ( $hover_style == 'zoom_in' ) {
 			$class .= $class . ' hover-zoom';
@@ -80,7 +80,11 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 	 * Fix WooCommerce Loop Title
 	 */
 	function woocommerce_template_loop_product_title() {
-		echo '<p class="name product-title"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></p>';
+		echo '<p class="name product-title ' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">';
+		woocommerce_template_loop_product_link_open();
+		echo get_the_title();  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		woocommerce_template_loop_product_link_close();
+		echo '</p>';
 	}
 }
 
@@ -142,22 +146,11 @@ if ( ! function_exists( 'flatsome_product_box_actions_add_to_cart' ) ) {
 	 * Add 'Add to cart' icon
 	 */
 	function flatsome_product_box_actions_add_to_cart() {
-		// Check if active
-		if ( flatsome_option( 'add_to_cart_icon' ) !== "show" ) {
+		// Check if active.
+		if ( get_theme_mod( 'add_to_cart_icon' ) !== 'show' ) {
 			return;
 		}
-		global $product;
-		echo apply_filters( 'woocommerce_loop_add_to_cart_link',
-			sprintf( '<a rel="nofollow" href="%s" data-quantity="%s" data-product_id="%s" data-product_sku="%s" class="%s %s add-to-cart-grid no-padding" style="width:0;display:block">
-            <div class="cart-icon tooltip absolute is-small" title="%s"><strong>+</strong></div></a>',
-				esc_url( $product->add_to_cart_url() ),
-				esc_attr( isset( $quantity ) ? $quantity : 1 ),
-				esc_attr( $product->get_id() ),
-				esc_attr( $product->get_sku() ),
-				esc_attr( $product->is_type( 'variable' ) || $product->is_type( 'grouped' ) ? '' : 'ajax_add_to_cart' ),
-				esc_attr( isset( $class ) ? $class : 'add_to_cart_button' ),
-				esc_html( $product->add_to_cart_text() ) ),
-			$product );
+		woocommerce_template_loop_add_to_cart();
 	}
 }
 add_action( 'flatsome_product_box_actions', 'flatsome_product_box_actions_add_to_cart', 1 );
@@ -167,26 +160,80 @@ if ( ! function_exists( 'flatsome_woocommerce_shop_loop_button' ) ) {
 	 * Add 'Add to Cart' After
 	 */
 	function flatsome_woocommerce_shop_loop_button() {
-		if ( flatsome_option( 'add_to_cart_icon' ) !== "button" ) {
+		if ( get_theme_mod( 'add_to_cart_icon' ) !== 'button' ) {
 			return;
 		}
-		global $product;
-
-		echo apply_filters( 'woocommerce_loop_add_to_cart_link',
-			sprintf( '<div class="add-to-cart-button"><a href="%s" rel="nofollow" data-product_id="%s" class="%s %s product_type_%s button %s is-%s mb-0 is-%s">%s</a></div>',
-				esc_url( $product->add_to_cart_url() ),
-				esc_attr( $product->get_id() ),
-				esc_attr( $product->is_type( 'variable' ) || $product->is_type( 'grouped' ) ? '' : 'ajax_add_to_cart' ),
-				$product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
-				esc_attr( $product->get_type() ),
-				esc_attr( 'primary' ), // Button color
-				esc_attr( get_theme_mod( 'add_to_cart_style', 'outline' ) ), // Button style
-				esc_attr( 'small' ), // Button size
-				esc_html( $product->add_to_cart_text() ) ),
-			$product );
+		woocommerce_template_loop_add_to_cart();
 	}
 }
 add_action( 'flatsome_product_box_after', 'flatsome_woocommerce_shop_loop_button', 100 );
+
+/**
+ * Add and remove classes depending on add_to_cart_icon type.
+ *
+ * @param array      $args    Default args, see woocommerce_template_loop_add_to_cart().
+ * @param WC_Product $product Product object.
+ *
+ * @return array
+ */
+function flatsome_woocommerce_loop_add_to_cart_args( $args, $product ) {
+
+	if ( ! doing_action( 'flatsome_product_box_actions' ) && ! doing_action( 'flatsome_product_box_after' ) ) {
+		return $args;
+	}
+
+	if ( get_theme_mod( 'add_to_cart_icon' ) === 'show' ) {
+		$classes       = array( 'add-to-cart-grid', 'no-padding', 'is-transparent' );
+		$class         = isset( $args['class'] ) ? $args['class'] : '';
+		$classes       = array_merge( $classes, explode( ' ', $class ) );
+		$classes       = array_diff( $classes, array( 'button' ) );
+		$args['class'] = implode( ' ', array_filter( $classes ) );
+	}
+
+	if ( get_theme_mod( 'add_to_cart_icon' ) === 'button' ) {
+		$classes       = array( 'primary', 'is-small', 'mb-0' );
+		$class         = isset( $args['class'] ) ? $args['class'] : '';
+		$classes       = array_merge( $classes, explode( ' ', $class ) );
+		$classes[]     = 'is-' . get_theme_mod( 'add_to_cart_style', 'outline' );
+		$args['class'] = implode( ' ', array_filter( $classes ) );
+	}
+
+	return $args;
+}
+
+add_filter( 'woocommerce_loop_add_to_cart_args', 'flatsome_woocommerce_loop_add_to_cart_args', 5, 2 );
+
+/**
+ * Change button sprintf format depending on add_to_cart_icon type.
+ *
+ * @param string     $link    Add to cart link html.
+ * @param WC_Product $product Product object.
+ * @param array      $args    Filtered args, see woocommerce_template_loop_add_to_cart().
+ *
+ * @return string
+ */
+function flatsome_woocommerce_loop_add_to_cart_link( $link, $product, $args ) {
+
+	if ( ! doing_action( 'flatsome_product_box_actions' ) && ! doing_action( 'flatsome_product_box_after' ) ) {
+		return $link;
+	}
+
+	switch ( get_theme_mod( 'add_to_cart_icon', 'disabled' ) ) {
+		case 'show':
+			$insert = '<div class="cart-icon tooltip is-small" title="' . esc_html( $product->add_to_cart_text() ) . '"><strong>+</strong></div>';
+			$link   = preg_replace( '/(<a.*?>).*?(<\/a>)/', '$1' . $insert . '$2', $link );
+			break;
+		case 'button':
+			$link = '<div class="add-to-cart-button">' . $link . '</div>';
+			break;
+		default:
+			return $link;
+	}
+
+	return $link;
+}
+
+add_filter( 'woocommerce_loop_add_to_cart_link', 'flatsome_woocommerce_loop_add_to_cart_link', 5, 3 );
 
 if ( ! function_exists( 'flatsome_woocommerce_shop_loop_excerpt' ) ) {
 	/**

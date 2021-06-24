@@ -12,6 +12,6 @@
   	 	<div class="flex-col flex-center text-center">
   			<?php get_template_part( 'template-parts/posts/partials/entry', 'title');  ?>
   	 	</div>
-  	</div><!-- flex-row -->
-  </div><!-- .page-title -->
+  	</div>
+  </div>
 <?php endwhile; ?>

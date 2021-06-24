@@ -9,7 +9,19 @@
 	$ids = implode(',', $ids);
 ?>
 
-<?php echo do_shortcode('[blog_posts type="row" image_width="40" depth="' . flatsome_option('blog_posts_depth') . '" depth_hover="' . flatsome_option('blog_posts_depth_hover') . '" text_align="' . get_theme_mod( 'blog_posts_title_align', 'center' ) . '" style="vertical" columns="1" ids="' . $ids . '"]'); ?>
+	<?php
+	echo flatsome_apply_shortcode( 'blog_posts', array(
+		'type'        => 'row',
+		'image_width' => '40',
+		'depth'       => get_theme_mod( 'blog_posts_depth', 0 ),
+		'depth_hover' => get_theme_mod( 'blog_posts_depth_hover', 0 ),
+		'text_align'  => get_theme_mod( 'blog_posts_title_align', 'center' ),
+		'style'       => 'vertical',
+		'columns'     => '1',
+		'show_date'   => get_theme_mod( 'blog_badge', 1 ) ? 'true' : 'false',
+		'ids'         => $ids,
+	) );
+	?>
 
 <?php flatsome_posts_pagination(); ?>
 

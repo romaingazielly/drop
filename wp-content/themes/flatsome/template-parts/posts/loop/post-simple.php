@@ -4,7 +4,7 @@
 			<div class="entry-image-attachment" style="max-height:<?php echo $image_height; ?>;overflow:hidden;">
 				<?php the_post_thumbnail( 'medium' ); ?>
 			</div>
-		</div><!-- .box-image -->
+		</div>
 		<div class="box-text spacing-medium text-center">
 			<h5 class="post-title uppercase"><?php the_title(); ?></h5>
 			<div class="is-divider small"></div>
@@ -25,9 +25,9 @@
 				);
 				?>
 			</p>
-		</div><!-- .post_shortcode_text -->
+		</div>
 	</a>
 	<?php if ( $show_date != 'false' ) { ?>
 		<?php get_template_part( 'template-parts/posts/partials/entry', 'date-box' ); ?>
 	<?php } ?>
-</div><!-- .box -->
+</div>

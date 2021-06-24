@@ -103,7 +103,6 @@ add_ux_builder_shortcode( 'ux_product_excerpt', array(
 	'category'  => __( 'Product Page' ),
 ) );
 
-
 add_ux_builder_shortcode( 'ux_product_add_to_cart', array(
 	'name'      => __( 'Product Add To Cart' ),
 	'thumbnail' => flatsome_ux_builder_thumbnail( 'woo_products' ),
@@ -116,6 +115,7 @@ add_ux_builder_shortcode( 'ux_product_add_to_cart', array(
 			'options' => array(
 				'normal' => __( 'Normal', 'flatsome-admin' ),
 				'flat'   => __( 'Flat', 'flatsome-admin' ),
+				'minimal'   => __( 'Minimal', 'flatsome-admin' ),
 			),
 		),
 		'size'  => array(

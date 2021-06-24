@@ -88,6 +88,21 @@ add_ux_builder_shortcode( 'ux_image', array(
                 'true'  => array( 'title' => 'On'),
             ),
         ),
+
+        'lightbox_image_size' => array(
+	        'type'       => 'select',
+	        'heading'    => __( 'Lightbox Image Size' ),
+	        'conditions' => 'lightbox == "true"',
+	        'default'    => '',
+	        'options'    => array(
+		        ''          => 'Default',
+		        'large'     => 'Large',
+		        'medium'    => 'Medium',
+		        'thumbnail' => 'Thumbnail',
+		        'original'  => 'Original',
+	        )
+        ),
+
         'caption' => array(
             'type' => 'radio-buttons',
             'heading' => __('Caption'),
@@ -97,6 +112,18 @@ add_ux_builder_shortcode( 'ux_image', array(
                 'true'  => array( 'title' => 'On'),
             ),
         ),
+
+		'lightbox_caption'    => array(
+			'type'       => 'radio-buttons',
+			'heading'    => __( 'Caption on Lightbox' ),
+			'conditions' => 'lightbox == "true"',
+			'default'    => '',
+			'options'    => array(
+				''     => array( 'title' => 'Off' ),
+				'true' => array( 'title' => 'On' ),
+			),
+		),
+
         'image_overlay' => array(
             'type' => 'colorpicker',
             'heading' => __( 'Image Overlay' ),

@@ -23,7 +23,7 @@ $flatsome_footer_right_text = trim( get_theme_mod( 'footer_right_text' ) );
           </div>
         <?php endif; ?>
         <?php echo $flatsome_absolute_footer_secondary; ?>
-      </div><!-- -right -->
+      </div>
     <?php endif; ?>
 
     <div class="footer-primary pull-left">
@@ -41,6 +41,6 @@ $flatsome_footer_right_text = trim( get_theme_mod( 'footer_right_text' ) );
         <?php echo do_shortcode( get_theme_mod( 'footer_left_text', 'Copyright [ux_current_year] &copy; <strong>UX Themes</strong>' ) ); ?>
       </div>
       <?php do_action( 'flatsome_absolute_footer_primary' ); ?>
-    </div><!-- .left -->
-  </div><!-- .container -->
-</div><!-- .absolute-footer -->
+    </div>
+  </div>
+</div>

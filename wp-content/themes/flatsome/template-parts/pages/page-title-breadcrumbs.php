@@ -11,5 +11,5 @@
 	 		<?php flatsome_breadcrumb( 'page-breadcrumbs' ); ?>
 	 	</div>
 
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

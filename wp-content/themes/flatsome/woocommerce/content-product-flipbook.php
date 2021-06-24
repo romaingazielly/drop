@@ -26,10 +26,10 @@ add_action( 'woocommerce_single_product_flipbook_summary', 'woocommerce_template
                     <?php echo get_the_post_thumbnail( $post->ID,  apply_filters( 'woocommerce_gallery_image_size', 'woocommerce_single' )) ?>
                   </div>
                   <?php wc_get_template( 'loop/sale-flash.php' ); ?>
-                </div><!-- end product-image -->
+                </div>
           </a>
-        </div><!-- end product -->
-        </div><!-- large-6 -->
+        </div>
+        </div>
        <div class="large-6 col flip-page-two">
         <div class="product-info col-inner inner-padding">
               <h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
@@ -37,5 +37,5 @@ add_action( 'woocommerce_single_product_flipbook_summary', 'woocommerce_template
               <?php do_action( 'woocommerce_single_product_flipbook_summary' ); ?>
               <a href="<?php the_permalink(); ?>" class="button"><?php _e( 'Read more', 'woocommerce' ); ?></a>
          </div>
-        </div><!-- large-6 -->
-</div><!-- row -->
+        </div>
+</div>

@@ -27,12 +27,6 @@ if(get_theme_mod('product_gallery_woocommerce')) {
   return;
 }
 
-// Fallback to WC.2x Versions.
-if(!fl_woocommerce_version_check('3.0.0') ) {
-  wc_get_template( 'woocommerce/single-product/w2-product-image.php' );
-  return;
-}
-
 if(get_theme_mod('product_layout') == 'gallery-wide'){
   wc_get_template_part( 'single-product/product-image', 'wide' );
   return;

@@ -13,5 +13,5 @@
 			<?php get_flatsome_portfolio_breadcrumbs(); ?>
 	 	</div>
 	 
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

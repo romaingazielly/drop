@@ -59,7 +59,7 @@ function flatsome_testimonial($atts, $content = null) {
              <span class="testimonial-company test_company"><?php echo $company; ?></span>
           </div>
         </div>
-  </div><!-- .icon-box -->
+  </div>
 
   <?php
   $content = ob_get_contents();

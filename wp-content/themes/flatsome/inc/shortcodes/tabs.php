@@ -1,6 +1,6 @@
 <?php
 // [tabgroup]
-function ux_tabgroup( $params, $content = null, $tag ) {
+function ux_tabgroup( $params, $content = null, $tag = '' ) {
 	$GLOBALS['tabs'] = array();
 	$GLOBALS['tab_count'] = 0;
 	$i = 1;

@@ -31,7 +31,7 @@ if ( get_theme_mod( 'product_info_meta', 1 ) ) {
  * Quick View Output
  */
 function flatsome_quickview() {
-	global $post, $product, $woocommerce;
+	global $post, $product;
 	$prod_id = $_POST["product"];
 	$post    = get_post( $prod_id );
 	$product = wc_get_product( $prod_id );

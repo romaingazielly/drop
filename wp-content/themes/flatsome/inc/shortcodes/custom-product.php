@@ -157,6 +157,12 @@ add_shortcode( 'ux_product_add_to_cart', function ( $atts ) {
 		return null;
 	}
 
+	add_filter( 'theme_mod_product_info_form', function () use ( $style ) {
+		if ( $style ) {
+			return $style;
+		}
+	} );
+
 	ob_start();
 	echo '<div class="add-to-cart-container form-' . $style . ' is-' . $size . '">';
 	woocommerce_template_single_add_to_cart();

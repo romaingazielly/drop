@@ -16,21 +16,21 @@ get_header(); ?>
 <?php if(is_user_logged_in()){?>
 
 <div class="row vertical-tabs">
-<div class="large-3 col col-border">
+	<div class="large-3 col col-border">
 
-	<?php wc_get_template('myaccount/account-user.php'); ?>
+		<?php wc_get_template('myaccount/account-user.php'); ?>
 
-	<ul id="my-account-nav" class="account-nav nav nav-line nav-uppercase nav-vertical mt-half">
-	     <?php wc_get_template('myaccount/account-links.php'); ?>
-	</ul><!-- .account-nav -->
-</div><!-- .large-3 -->
+		<ul id="my-account-nav" class="account-nav nav nav-line nav-uppercase nav-vertical mt-half">
+		     <?php wc_get_template('myaccount/account-links.php'); ?>
+		</ul>
+	</div>
 
-<div class="large-9 col">
+	<div class="large-9 col">
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php the_content(); ?>
 		<?php endwhile; // end of the loop. ?>
-	</div><!-- .large-9 -->
-</div><!-- .row .vertical-tabs -->
+	</div>
+</div>
 
 <?php } else { ?>
 
@@ -42,10 +42,8 @@ get_header(); ?>
 
 <?php } ?>
 
-
-</div><!-- .container -->
-</div><!-- .page-wrapper.my-account  -->
-
+</div>
+</div>
 
 <?php do_action( 'flatsome_after_page' ); ?>
 

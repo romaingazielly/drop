@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if(!$repeater_col_spacing) $repeater_col_spacing = 'normal';
 if(!$repeater_columns) $repeater_columns = '4';
@@ -27,8 +27,6 @@ return array(
             'conditions' => 'type === "grid"',
             'default' => '600px',
             'responsive' => true,
-            'max' => 200,
-            'min' => 30,
     ),
     'width' => array(
         'type' => 'select',

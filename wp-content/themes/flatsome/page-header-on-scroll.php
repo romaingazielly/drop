@@ -1,6 +1,6 @@
 <?php
 /*
-Template name: Page - Full Width - Header On Scroll
+Template name: Page - Full Width - Header on Scroll
 
 */
 get_header(); ?>
@@ -11,7 +11,7 @@ get_header(); ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php the_content(); ?>
-			
+
 			<?php endwhile; // end of the loop. ?>
 </div>
 

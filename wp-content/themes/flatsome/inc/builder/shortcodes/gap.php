@@ -11,6 +11,7 @@ add_ux_builder_shortcode( 'gap', array(
 
         'height' => array(
             'type' => 'scrubfield',
+            'responsive' => true,
             'heading' => __( 'Height' ),
             'default' => '30px',
             'min' => 0,

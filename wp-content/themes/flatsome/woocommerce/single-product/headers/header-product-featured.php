@@ -8,10 +8,10 @@
 	<div class="page-title-inner flex-row  medium-flex-wrap container">
 	  <div class="flex-col flex-grow medium-text-center">
 	  		<?php do_action('flatsome_product_title') ;?>
-	  </div><!-- .flex-left -->
+	  </div>
 	  
 	   <div class="flex-col nav-right medium-text-center">
 		   	<?php do_action('flatsome_product_title_tools') ;?>
-	   </div><!-- .flex-right -->
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	   </div>
+	</div>
+</div>

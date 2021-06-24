@@ -4,4 +4,4 @@
 					<?php if(flatsome_option('footer_left_text')) { echo do_shortcode(flatsome_option('footer_left_text'));} ?>
 				</div>
 		</div>
-</div><!-- .absolute-footer -->
+</div>

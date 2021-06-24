@@ -29,13 +29,53 @@ function ux_builder_asset( $path ) {
  * @return string
  */
 function ux_builder_edit_url( $post_id, $edit_post_id = null, $type = 'editor' ) {
-  $query = http_build_query( array(
+  $query = array(
     'edit_post_id' => $edit_post_id,
     'app' => 'uxbuilder',
     'type' => $type
-  ) );
+  );
 
-  return get_edit_post_link( $post_id, 'raw' ) . "&{$query}";
+  $edit_link = get_edit_post_link( $post_id, 'raw' );
+
+  // Polylang support.
+  if (
+    function_exists( 'pll_get_post_language' ) &&
+    function_exists( 'PLL' )
+  ) {
+    $slug = pll_get_post_language( $post_id );
+    $force_lang = PLL()->links_model->options['force_lang'];
+
+    // Rewrite URL if the language has another domain.
+    if ( $slug && $force_lang === 3 ) {
+      $lang = PLL()->model->get_language( $slug );
+      $edit_link = PLL()->links_model->switch_language_in_link( $edit_link, $lang );
+    }
+  }
+
+  // WPML Support.
+  if ( function_exists( 'icl_get_setting' ) ) {
+    global $wpml_url_converter;
+
+    $language = apply_filters( 'wpml_post_language_details', null, $post_id );
+    $negotiation_type = icl_get_setting( 'language_negotiation_type' );
+
+    // Rewrite URL if the language has another domain.
+    // Use looose comparison because it can be a string.
+    if ( $negotiation_type == 2 ) {
+      $url_strategy = $wpml_url_converter->get_strategy();
+      // Replace wp-admin in URL to force convert it...
+      $edit_link = str_replace( 'wp-admin', '{{replaced}}', $edit_link  );
+      $edit_link = $url_strategy->convert_url_string( $edit_link, $language['language_code'] );
+      $edit_link = str_replace( '{{replaced}}', 'wp-admin', $edit_link  );
+      $edit_link = str_replace( '/?', '?', $edit_link  );
+    }
+  }
+
+  $edit_link = add_query_arg( 'app', 'uxbuilder', $edit_link );
+  $edit_link = add_query_arg( 'type', $type, $edit_link );
+  $edit_link = add_query_arg( 'edit_post_id', $edit_post_id, $edit_link );
+
+  return $edit_link;
 }
 
 /**
@@ -44,17 +84,22 @@ function ux_builder_edit_url( $post_id, $edit_post_id = null, $type = 'editor' )
  * @return string
  */
 function ux_builder_iframe_url() {
-  $iframe_url = array_key_exists( 'iframe_url', $_GET ) ? $_GET['iframe_url'] : null;
   $post_id = array_key_exists( 'post', $_GET ) ? $_GET['post'] : null;
   $edit_post_id = array_key_exists( 'edit_post_id', $_GET ) ? $_GET['edit_post_id'] : null;
-  $permalink = $iframe_url ? site_url( $iframe_url ) : get_permalink( $post_id );
-  $has_query = !!parse_url( $permalink, PHP_URL_QUERY );
-  $query_start = $has_query ? '&' : '?';
+  $permalink = get_permalink( $post_id );
+
+  $permalink = add_query_arg( 'post_id', $post_id, $permalink );
+  $permalink = add_query_arg( 'uxb_iframe', true, $permalink );
+
+  if ( $edit_post_id ) {
+    $permalink = add_query_arg( 'edit_post_id', $edit_post_id, $permalink );
+  }
 
   // Fix SSL
-  if(is_ssl()) $permalink = str_replace("http:", "https:", $permalink);
+  if ( is_ssl() ) {
+    $permalink = str_replace( 'http:', 'https:', $permalink );
+  }
 
-  if ($iframe_url) $edit_post_id = $post_id;
-
-  return $permalink . $query_start . 'uxb_iframe&post_id=' . $post_id . ( $edit_post_id ? '&edit_post_id=' . $edit_post_id : '' );
+  return $permalink;
 }
+

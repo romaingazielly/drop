@@ -4,14 +4,17 @@ Flatsome.behavior('wishlist', {
       'use strict'
 
       jQuery(element).on('click', function (e) {
-        if (jQuery(this).parent().find('.yith-wcwl-wishlistexistsbrowse').hasClass('show')) {
-          var link = jQuery(this).parent().find('.yith-wcwl-wishlistexistsbrowse a').attr('href')
+        // Browse wishlist
+        if (jQuery(this).parent().find('.yith-wcwl-wishlistexistsbrowse, .yith-wcwl-wishlistaddedbrowse').length) {
+          var link = jQuery(this).parent().find('.yith-wcwl-wishlistexistsbrowse a, .yith-wcwl-wishlistaddedbrowse a').attr('href')
           window.location.href = link
           return
         }
-
         jQuery(this).addClass('loading')
+        // Delete or add item (only one of both is present).
+        jQuery(this).parent().find('.delete_item').click()
         jQuery(this).parent().find('.add_to_wishlist').click()
+
         e.preventDefault()
       })
     })

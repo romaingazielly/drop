@@ -43,11 +43,11 @@ class Flatsome_UX_Blocks_Widget extends WP_Widget {
 		<?php echo $before_widget; ?>
 
 		<?php if (!empty($instance['title']) ) echo $before_title . $instance['title'] . $after_title; ?>
-		
+
 		<?php if(!empty($instance['block'])) echo do_shortcode('[block id="'.$instance['block'].'"]'); ?>
 
 		<?php echo $after_widget; ?>
-		
+
 		<?php
 		$cache[$args['widget_id']] = ob_get_flush();
 		wp_cache_set('block_widget', $cache, 'widget');
@@ -91,7 +91,7 @@ class Flatsome_UX_Blocks_Widget extends WP_Widget {
  		   echo '<option '.selected( $instance['block'], $key).' value="'.$key.'">'.$value.'</option>';
  		} ?>
 		</select></p>
- 		<p>You can edit blocks width the UX Builder if you hover them in the front-end.<br/><a href="http://docs.uxthemes.com/article/237-ux-builder-how-to-use-blocks" target="_blank">Learn more about Blocks</a></p>
+ 		<p>You can edit blocks with the UX Builder if you hover them in the front-end.<br/><a href="http://docs.uxthemes.com/article/237-ux-builder-how-to-use-blocks" target="_blank">Learn more about Blocks</a></p>
 <?php
 	}
 }

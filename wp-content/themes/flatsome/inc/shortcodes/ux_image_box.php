@@ -96,14 +96,14 @@ function ux_image_box( $atts, $content = null ) {
 				<?php if ( $style == 'shade' ) { ?><div class="shade"></div><?php } ?>
 			</div>
 			<?php if ( $link ) echo $link_end; ?>
-		</div><!-- box-image -->
+		</div>
 
 		<div class="box-text <?php echo implode( ' ', $classes_text ); ?>" <?php echo get_shortcode_inline_css( $css_args ); ?>>
 			<div class="box-text-inner">
 				<?php echo flatsome_contentfix( $content ); ?>
-			</div><!-- box-text-inner -->
-		</div><!-- box-text -->
-	</div><!-- .box  -->
+			</div>
+		</div>
+	</div>
 	<?php
 	$content = ob_get_contents();
 	ob_end_clean();

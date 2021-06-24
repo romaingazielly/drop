@@ -55,7 +55,7 @@ function title_shortcode( $atts, $content = null ){
     $css_args_title[] = array( 'attribute' => 'color', 'value' => $color);
   }
 
-  return '<div class="'.$classes.'" '.get_shortcode_inline_css($css_args).'><'. $tag_name . ' class="section-title section-title-'.$style.'"><b></b><span class="section-title-main" '.get_shortcode_inline_css($css_args_title).'>'.$icon.$text.$small_text.'</span><b></b>'.$link_output.'</' . $tag_name .'></div><!-- .section-title -->';
+  return '<div class="'.$classes.'" '.get_shortcode_inline_css($css_args).'><'. $tag_name . ' class="section-title section-title-'.$style.'"><b></b><span class="section-title-main" '.get_shortcode_inline_css($css_args_title).'>'.$icon.$text.$small_text.'</span><b></b>'.$link_output.'</' . $tag_name .'></div>';
 }
 add_shortcode('title', 'title_shortcode');
 
@@ -93,7 +93,7 @@ if($align === 'right'){
   $align_start ='<div class="text-right">';
   $align_end = '</div>';
 }
-return $align_start.'<div class="is-divider divider clearfix" '.get_shortcode_inline_css($css_args).'></div>'.$align_end.'<!-- .divider -->';
+return $align_start.'<div class="is-divider divider clearfix" '.get_shortcode_inline_css($css_args).'></div>'.$align_end;
 
 }
 add_shortcode('divider', 'divider_shortcode');

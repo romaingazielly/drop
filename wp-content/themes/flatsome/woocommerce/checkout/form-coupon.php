@@ -37,6 +37,6 @@ if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
 			<div class="flex-col">
 				<button type="submit" class="button expand" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 			</div>
-		</div><!-- row -->
-	</div><!-- coupon -->
+		</div>
+	</div>
 </form>

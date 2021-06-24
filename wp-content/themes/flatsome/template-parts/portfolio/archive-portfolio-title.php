@@ -9,5 +9,5 @@
 				} else { the_title(); } ?>
 			</h1>
 	 	</div>
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

@@ -8,6 +8,7 @@ function ux_gallery($atts) {
       'visibility' => '',
       'ids' => '', // Gallery IDS
       'lightbox' => true,
+      'lightbox_image_size' => 'large',
       'thumbnails' => true,
       'orderby' => 'post__in',
       'order' => '',
@@ -54,6 +55,7 @@ function ux_gallery($atts) {
 
 	ob_start();
 
+	$classes = explode( ' ', $class );
       $classes_box = array('box','has-hover','gallery-box');
       $classes_image = array('box-image');
       $classes_text = array('box-text');
@@ -109,11 +111,15 @@ function ux_gallery($atts) {
             array( 'attribute' => 'padding', 'value' => $text_padding ),
       );
 
+	if ( $is_multi_gallery = get_theme_mod( 'flatsome_lightbox_multi_gallery' ) ) {
+		$classes[] = 'lightbox-multi-gallery';
+	}
+
       // Repeater options
       $repater['id'] = $_id;
       $repater['type'] = $type;
       $repater['style'] = $style;
-      $repater['class'] = $class;
+      $repater['class'] = implode ( ' ', $classes );
       $repater['visibility'] = $visibility;
       $repater['slider_style'] = $slider_nav_style;
       $repater['slider_style'] = $slider_nav_style;
@@ -162,8 +168,9 @@ function ux_gallery($atts) {
             $link_end = '</a>';
 
         } else if( 'false' !== $lightbox) {
-           $get_image = wp_get_attachment_image_src( $attachment->ID, 'large');
-           $link_start = '<a class="image-lightbox lightbox-gallery" href="'.$get_image[0].'" title="'. esc_attr( $attachment->post_excerpt ) . '">';
+           $get_image = wp_get_attachment_image_src( $attachment->ID, $lightbox_image_size);
+           $link_class = $is_multi_gallery ? '' : 'image-lightbox lightbox-gallery';
+           $link_start = '<a class="' . $link_class . '" href="'.$get_image[0].'" title="'. esc_attr( $attachment->post_excerpt ) . '">';
            $link_end = '</a>';
         }
 
@@ -203,14 +210,14 @@ function ux_gallery($atts) {
                         </div>
                     </div>
                 <?php } ?>
-              </div><!-- .image -->
+              </div>
               <div class="<?php echo implode(' ', $classes_text); ?>" <?php echo get_shortcode_inline_css($css_args_text); ?>>
                  <p><?php echo $attachment->post_excerpt; ?></p>
-              </div><!-- .text -->
-            </div><!-- .box -->
+              </div>
+            </div>
             <?php echo $link_end; ?>
-          </div><!-- .col-inner -->
-         </div><!-- .col -->
+          </div>
+         </div>
          <?php
     } // Loop
 

@@ -26,6 +26,6 @@
 			<div id="tab-description" class="panel"></div>
 			<div class="panel"></div>
 			<div class="panel"></div>
-		</div><!-- .tab-panels -->
+		</div>
   </div>
 </li>

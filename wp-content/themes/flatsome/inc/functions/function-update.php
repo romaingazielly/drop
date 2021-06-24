@@ -1,22 +1,59 @@
 <?php
 
-/* Check if support is expired */
-function flatsome_is_support_expired($slug){
+/**
+ * Normalizes the theme directory name.
+ *
+ * @return string
+ */
+function flatsome_theme_key( $slug = null ) {
+  if ( empty( $slug ) ) {
+    $slug = basename( get_template_directory() );
+  }
 
+  $slug = trim( $slug );
+  $slug = preg_replace( '/[,.\s]+/', '-', $slug );
+  $slug = strtolower( $slug );
+
+  return $slug;
+}
+
+/* Check if support is expired */
+function flatsome_is_support_expired() {
+  $slug = flatsome_theme_key();
   $date = date('m/d/Y h:i:s a', time());
 
-  if(strtotime($date) > strtotime(get_option( $slug . '_wup_supported_until', '' ))){
+  $purchase_code   = sanitize_text_field( get_option( $slug . '_wup_purchase_code', '' ) );
+  $supported_until = get_option( $slug . '_wup_supported_until', '' );
+
+  if ( ! empty( $purchase_code ) && strtotime( $date ) > strtotime( $supported_until ) ) {
     return true;
   }
 }
 
+/**
+ * Check if support time is invalid.
+ *
+ * @param string $support_ends Support end timestamp.
+ *
+ * @return bool True if invalid false otherwise.
+ */
+function flatsome_is_invalid_support_time( $support_ends ) {
+	$array = array_map( 'trim', explode( ',', $support_ends ) );
+
+	return isset( $array[1] ) && $array[1] == 1970 ? true : false;
+}
+
 /* Check if theme is enabled */
 function flatsome_is_theme_enabled(){
-  $slug = basename( get_template_directory() );
+  if ( flatsome_envato()->is_registered() ) {
+    return true;
+  }
+  $slug = flatsome_theme_key();
   $purchase_code = sanitize_text_field( get_option( $slug . '_wup_purchase_code', '' ) );
   if($purchase_code){
     return true;
   }
+  return false;
 }
 
 /* Automagical updates */
@@ -51,7 +88,8 @@ function wupdates_check_JQ9eJ( $transient ) {
 
   // Use this filter to add optional data to send
   // Make sure you return an associative array - do not encode it in any way
-  $optional_data = apply_filters( 'wupdates_call_data_request', $http_args['body']['data'], $slug, $http_args['body']['version'] );
+  $theme_key     = flatsome_theme_key();
+  $optional_data = apply_filters( 'wupdates_call_data_request', $http_args['body']['data'], $theme_key, $http_args['body']['version'] );
 
   // Encrypting optional data with private key, just to keep your data a little safer
   // You should not edit the code bellow
@@ -101,18 +139,34 @@ add_filter( 'pre_set_site_transient_update_themes', 'wupdates_check_JQ9eJ' );
 function wupdates_add_purchase_code_field_JQ9eJ( $themes ) {
   $output = '';
   // First get the theme directory name (the theme slug - unique)
-  $slug = basename( get_template_directory() );
-  if ( ! is_multisite() && isset( $themes[ $slug ] ) ) {
+  $template = get_template();
+  $slug     = flatsome_theme_key();
+
+  if ( ! isset( $themes[ $template ]['tags'] ) ) {
+    $themes[ $template ]['tags'] = '';
+  }
+
+  if ( ! is_multisite() && isset( $themes[ $template ] ) ) {
     $output .= "<br/><br/>"; //put a little space above
 
+
     //get errors so we can show them
-    $errors = get_option( strtolower( $slug ) . '_wup_errors', array() );
-    delete_option( strtolower( $slug ) . '_wup_errors' ); //delete existing errors as we will handle them next
+    $errors = get_option( $slug . '_wup_errors', array() );
+    delete_option( $slug . '_wup_errors' ); //delete existing errors as we will handle them next
 
     //check if we have a purchase code saved already
-    $purchase_code = sanitize_text_field( get_option( strtolower( $slug ) . '_wup_purchase_code', '' ) );
+    $purchase_code = sanitize_text_field( get_option( $slug . '_wup_purchase_code', '' ) );
+
+    if ( ! empty( $purchase_code ) ) {
+      $output .= flatsome_envato()->admin()->render_message_form();
+    } else {
+      $output .= flatsome_envato()->admin()->render_registration_form();
+      $themes[ $template ]['tags'] .= $output;
+      return $themes;
+    }
+
     //in case there is an update available, tell the user that it needs a valid purchase code
-    if ( empty( $purchase_code ) && ! empty( $themes[ $slug ]['hasUpdate'] ) ) {
+    if ( empty( $purchase_code ) && ! empty( $themes[ $template ]['hasUpdate'] ) ) {
       $output .= '<div class="notice notice-error notice-alt notice-large">' . __( 'A <strong>valid purchase code</strong> is required for automatic updates.', 'wupdates' ) . '</div>';
     }
     //output errors and notifications
@@ -135,17 +189,14 @@ function wupdates_add_purchase_code_field_JQ9eJ( $themes ) {
       '<input type="hidden" name="wupdates_pc_theme" value="' . esc_attr( $slug ) . '" />' .
       '<input type="text" id="' . $purchase_code_key . '" name="' . $purchase_code_key . '"
               value="' . esc_attr( $purchase_code ) . '" placeholder="' . esc_html__( 'Purchase code ( e.g. 9g2b13fa-10aa-2267-883a-9201a94cf9b5 )', 'wupdates' ) . '" style="width:100%"/>' .
-      '<p>' . __( 'Enter your purchase code and <strong>hit return/enter</strong>.', 'wupdates' ) . '</p>' .
+      '<p>' . __( 'Enter your purchase code.', 'wupdates' ) . '</p>' .
       '<p class="theme-description">' .
         __( 'Find out how to <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank">get your purchase code</a>.', 'wupdates' ) .
         '</p>
       </form>';
   }
-  //finally put the markup after the theme tags
-  if ( ! isset( $themes[ $slug ]['tags'] ) ) {
-    $themes[ $slug ]['tags'] = '';
-  }
-  $themes[ $slug ]['tags'] .= $output;
+
+  $themes[ $template ]['tags'] .= $output;
 
   return $themes;
 }
@@ -154,13 +205,13 @@ add_filter( 'wp_prepare_themes_for_js' ,'wupdates_add_purchase_code_field_JQ9eJ'
 /* Handle the purchase code input for multisite installations */
 function wupdates_ms_theme_list_purchase_code_field_JQ9eJ( $theme, $r ) {
   $output = '<br/>';
-  $slug = $theme->get_template();
+  $slug = flatsome_theme_key( $theme->get_template() );
   //get errors so we can show them
-  $errors = get_option( strtolower( $slug ) . '_wup_errors', array() );
-  delete_option( strtolower( $slug ) . '_wup_errors' ); //delete existing errors as we will handle them next
+  $errors = get_option( $slug . '_wup_errors', array() );
+  delete_option( $slug . '_wup_errors' ); //delete existing errors as we will handle them next
 
   //check if we have a purchase code saved already
-  $purchase_code = sanitize_text_field( get_option( strtolower( $slug ) . '_wup_purchase_code', '' ) );
+  $purchase_code = sanitize_text_field( get_option( $slug . '_wup_purchase_code', '' ) );
   //in case there is an update available, tell the user that it needs a valid purchase code
   if ( empty( $purchase_code ) ) {
     $output .=  '<p>' . __( 'A <strong>valid purchase code</strong> is required for automatic updates.', 'wupdates' ) . '</p>';
@@ -185,7 +236,7 @@ function wupdates_ms_theme_list_purchase_code_field_JQ9eJ( $theme, $r ) {
     '<input type="hidden" name="wupdates_pc_theme" value="' . esc_attr( $slug ) . '" />' .
     '<input type="text" id="' . $purchase_code_key . '" name="' . $purchase_code_key . '"
             value="' . esc_attr( $purchase_code ) . '" placeholder="' . esc_html__( 'Purchase code ( e.g. 9g2b13fa-10aa-2267-883a-9201a94cf9b5 )', 'wupdates' ) . '"/>' . ' ' .
-    __( 'Enter your purchase code and <strong>hit return/enter</strong>.', 'wupdates' ) . ' ' .
+    __( 'Enter your purchase code.', 'wupdates' ) . ' ' .
     __( 'Find out how to <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank">get your purchase code</a>.', 'wupdates' ) .
     '</form>';
 
@@ -197,12 +248,10 @@ function wupdates_purchase_code_needed_notice_JQ9eJ() {
   global $current_screen;
 
   $output = '';
-  $slug = basename( get_template_directory() );
-  //check if we have a purchase code saved already
-  $purchase_code = sanitize_text_field( get_option( strtolower( $slug ) . '_wup_purchase_code', '' ) );
+
   //if the purchase code doesn't pass the prevalidation, show notice
-  if ( in_array( $current_screen->id, array( 'update-core', 'update-core-network') ) && true !== wupdates_prevalidate_purchase_code_JQ9eJ( $purchase_code ) ) {
-    $output .= '<div class="updated"><p>' . sprintf( __( '<a href="%s">Please enter your purchase code</a> to activate Flatsome and get automatic updates.', 'wupdates' ), network_admin_url( 'admin.php?page=flatsome-panel' ) ) . '</p></div>';
+  if ( in_array( $current_screen->id, array( 'update-core', 'update-core-network') ) && ! flatsome_envato()->is_registered() ) {
+    $output .= '<div class="updated"><p>' . sprintf( __( '<a href="%s">Please enter your Envato token</a> to activate Flatsome and get one-click updates.', 'flatsome' ), network_admin_url( 'admin.php?page=flatsome-panel' ) ) . '</p></div>';
   }
 
   echo $output;
@@ -211,8 +260,23 @@ add_action( 'admin_notices', 'wupdates_purchase_code_needed_notice_JQ9eJ' );
 add_action( 'network_admin_notices', 'wupdates_purchase_code_needed_notice_JQ9eJ' );
 
 function wupdates_process_purchase_code_JQ9eJ() {
-  //in case the user has submitted the purchase code form
-  if ( ! empty( $_POST['wupdates_pc_theme'] ) ) {
+  $slug = isset( $_POST['wupdates_pc_theme'] )
+    ? sanitize_text_field( $_POST['wupdates_pc_theme'] )
+    : '';
+
+  if ( ! empty( $_POST['flatsome_wizard_envato_token'] ) ) {
+
+    $token     = wp_unslash( $_POST['flatsome_wizard_envato_token'] );
+    $confirmed = (bool) wp_unslash( $_POST['flatsome_wizard_envato_terms'] );
+    flatsome_envato()->admin()->update_token( $token, $confirmed );
+    delete_option( strtolower( $slug ) . '_wup_errors' );
+
+    // Redirect back to the themes page and open popup.
+    wp_redirect( esc_url_raw( add_query_arg( 'theme', $slug ) ) );
+    exit;
+
+  } else if ( ! empty( $_POST['wupdates_pc_theme'] ) ) {
+
     $errors = array();
     $slug = sanitize_text_field( $_POST['wupdates_pc_theme'] ); // get the theme's slug
     //PHP doesn't allow dots or spaces in $_POST keys - it converts them into underscore; so we do also
@@ -254,10 +318,7 @@ function wupdates_process_purchase_code_JQ9eJ() {
         if ( ! empty( $response ) ) {
           //we will only update the purchase code if it's valid
           //this way we keep existing valid purchase codes
-          if ( isset( $response['purchase_code'] ) ) {
-				$response['raw_response']['sold_at'] = 'April 1 2017';
-				$response['raw_response']['supported_until'] = 'Jan 23 2023';
-				$response['raw_response']['buyer'] = 'nulled';
+          if ( isset( $response['purchase_code'] ) && 'valid' == $response['purchase_code'] ) {
 
 
             //all is good, update the purchase code option
@@ -267,6 +328,11 @@ function wupdates_process_purchase_code_JQ9eJ() {
             update_option( strtolower( $slug ) . '_wup_sold_at', $response['raw_response']['sold_at'] );
 
             // Supported until
+	        if ( ! isset( $response['raw_response']['supported_until'] ) ) {
+		        $dateTime = new DateTime( $response['raw_response']['sold_at'] );
+		        $dateTime->modify( '+6 months' );
+		        $response['raw_response']['supported_until'] = $dateTime->format( 'Y-m-d\TH:i:sP' );
+	        }
             update_option( strtolower( $slug ) . '_wup_supported_until', $response['raw_response']['supported_until'] );
 
             // Buyer
@@ -323,7 +389,7 @@ function wupdates_prevalidate_purchase_code_JQ9eJ( $purchase_code ) {
   if ( 36 == strlen( $purchase_code ) ) {
     return true;
   }
-  return true;
+  return false;
 }
 
 /* End of Envato checkup code */

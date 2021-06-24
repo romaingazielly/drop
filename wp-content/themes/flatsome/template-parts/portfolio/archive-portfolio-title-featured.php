@@ -24,5 +24,5 @@
 	 	<div class="flex-col flex-grow text-right">
 			<?php do_action('flatsome_portfolio_title_right'); ?>
 	 	</div>
-	</div><!-- flex-row -->
-</div><!-- .page-title -->
+	</div>
+</div>

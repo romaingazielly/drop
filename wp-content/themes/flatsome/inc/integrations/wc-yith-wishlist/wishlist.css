@@ -85,3 +85,131 @@ td.wishlist-empty{
 .wishlist-popup .feedback{
   display: none!important;
 }
+
+.wishlist-title {
+  margin-bottom: 20px;
+}
+
+#yith-wcwl-form .hidden-title-form,
+#yith-wcwl-form .hide-title-form i,
+.wishlist-title .button {
+  display: none;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 768px) {
+  .wishlist-title,
+  .wishlist-empty,
+  .yith_wcwl_wishlist_footer {
+    text-align: center;
+  }
+
+  .share-icons-title {
+    display: none;
+  }
+}
+
+.wishlist_table.mobile {
+  list-style: none;
+}
+
+.wishlist_table.mobile li .product-checkbox {
+  display: inline-block;
+  width: 20px;
+  vertical-align: top;
+}
+
+.wishlist_table.mobile li .item-wrapper {
+  display: inline-block;
+  width: calc(100% - 25px);
+  vertical-align: top;
+}
+
+.wishlist_table.wishlist_manage_table.mobile li .item-wrapper {
+  width: 100%;
+}
+
+.wishlist_table.mobile li .item-wrapper .product-thumbnail {
+  display: inline-block;
+  max-width: 60px;
+  margin-right: 10px;
+}
+
+.rtl .wishlist_table.mobile li .item-wrapper .product-thumbnail {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.wishlist_table.mobile li .item-wrapper .item-details {
+  display: inline-block;
+  width: calc(100% - 74px);
+  vertical-align: top;
+}
+
+.wishlist_table.mobile.with-checkbox li .additional-info-wrapper {
+  padding-left: 20px;
+}
+
+.rtl .wishlist_table.mobile.with-checkbox li .additional-info-wrapper {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+.wishlist_table.mobile li .additional-info-wrapper {
+  border-bottom: 1px solid #ececec;
+  width: calc(100% - 25px);
+}
+
+.wishlist_table.mobile li .additional-info-wrapper .product-add-to-cart,
+.wishlist_table.mobile li .additional-info-wrapper .move-to-another-wishlist {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.wishlist_table.mobile .button.add_to_cart_button {
+  margin: 0;
+}
+
+.wishlist_table.mobile td {
+  border-bottom: none;
+  padding: 3px 0;
+}
+
+.wishlist_table.mobile li[id^="yith-wcwl-row-"] {
+  position: relative;
+  margin-top: 20px;
+}
+
+.wishlist_table.mobile .product-remove {
+  position: absolute;
+  top: 5px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  line-height: 18px;
+  font-size: 18px;
+  border-radius: 100%;
+  color: #ccc;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid currentColor;
+}
+
+.rtl .wishlist_table.mobile .product-remove {
+  left: unset;
+  right: -12px;
+}
+
+.wishlist_table.mobile .product-remove a {
+  position: unset;
+}
+
+.wishlist_table.mobile .product-remove a i {
+  display: none;
+}
+
+.wishlist_table.mobile .product-remove a:after {
+  content: '×';
+  color: #ccc;
+}

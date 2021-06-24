@@ -12,7 +12,7 @@ class Flatsome_Admin {
 
 		add_action( 'admin_menu', array( $this, 'flatsome_panel_register_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'flatsome_panel_style' ) );
-	
+
 	} // end constructor
 
 
@@ -22,8 +22,10 @@ class Flatsome_Admin {
 	 * @since  1.4.4
 	 */
 	public function flatsome_panel_style() {
-		global $flatsome_version;
-		wp_enqueue_style( 'flatsome-panel-css', get_template_directory_uri() . '/inc/admin/panel/panel.css', $flatsome_version );
+		$uri     = get_template_directory_uri();
+		$theme   = wp_get_theme( get_template() );
+		$version = $theme->get( 'Version' );
+		wp_enqueue_style( 'flatsome-panel-css', $uri . '/inc/admin/panel/panel.css', array(), $version );
 	}
 
 	/**
@@ -35,8 +37,8 @@ class Flatsome_Admin {
 		$url = admin_url().'admin.php?page=flatsome-panel';
 
 		add_menu_page( 'Welcome to Flatsome', 'Flatsome', 'manage_options', 'flatsome-panel', array( $this, 'flatsome_panel_welcome' ), get_template_directory_uri().'/assets/img/logo-icon.svg', '2');
-		
-		add_submenu_page('flatsome-panel', 'Theme License', 'Theme License', 'manage_options', 'admin.php?page=flatsome-panel' );
+
+		add_submenu_page('flatsome-panel', 'Theme Registration', 'Theme Registration', 'manage_options', 'admin.php?page=flatsome-panel' );
 
 		//add_submenu_page('flatsome-panel', 'Getting Started', 'Getting Started', 'manage_options', 'flatsome-panel-getting-started', array( $this, 'flatsome_panel_getting_started') );
 

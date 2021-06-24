@@ -27,7 +27,7 @@
 
 		<?php
 
-		if ( fl_woocommerce_version_check( '3.4.0' ) ? woocommerce_product_loop() : have_posts() ) {
+		if ( woocommerce_product_loop() ) {
 
 			/**
 			 * Hook: woocommerce_before_shop_loop.
@@ -88,5 +88,5 @@
 		do_action( 'woocommerce_after_main_content' );
 		?>
 
-		</div><!-- .large-12  -->
-</div><!-- .row -->
+		</div>
+</div>

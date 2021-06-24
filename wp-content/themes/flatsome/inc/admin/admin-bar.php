@@ -18,8 +18,8 @@ if(function_exists('is_shop') && is_shop()) {
 
 $optionUrl_panel = get_admin_url().'customize.php?url='.$permalink.'&autofocus%5Bpanel%5D=';
 $optionUrl_section = get_admin_url().'customize.php?url='.$permalink.'&autofocus%5Bsection%5D=';
-$icon_style = 'font-size:20px; -webkit-font-smoothing: antialiased; font-weight:400!important; padding-right:4px; font-family:dashicons!important;margin-top:-2px;';
-$flatsome_icon = '<svg style="width:20px; margin-top:-4px; height:20px;vertical-align:middle;" width="184px" height="186px" viewBox="0 0 184 186" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 3.8.1 (29687) - http://www.bohemiancoding.com/sketch --> <title>Logo-white</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Logo-white" fill="#FFFFFF"> <g id="Group"> <path d="M92.6963305,153.35517 L69.6726254,130.331465 L92.6963305,107.30776 L92.6963305,66.7055226 L49.3715069,110.030346 L32.472925,93.1317642 L92.6963305,32.9083587 L92.6963305,0.803652143 L0.106126393,93.3938562 L92.6963305,185.98406 L92.6963305,153.35517 Z" id="Combined-Shape"></path> </g> <g id="Group" opacity="0.502623601" transform="translate(136.800003, 93.000000) scale(-1, 1) translate(-136.800003, -93.000000) translate(90.300003, 0.000000)"> <path d="M92.6963305,153.35517 L69.6726254,130.331465 L92.6963305,107.30776 L92.6963305,66.7055226 L49.3715069,110.030346 L32.472925,93.1317642 L92.6963305,32.9083587 L92.6963305,0.803652143 L0.106126393,93.3938562 L92.6963305,185.98406 L92.6963305,153.35517 Z" id="Combined-Shape" opacity="0.387068563"></path> </g> </g> </g> </svg>';
+$icon_style = 'font: normal 20px/1 \'dashicons\';-webkit-font-smoothing: antialiased;padding-right: 4px;margin-top:3px;';
+$flatsome_icon = '<svg style="width:20px; margin-top:-4px; height:20px;vertical-align:middle;" width="184px" height="186px" viewBox="0 0 184 186" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 3.8.1 (29687) - http://www.bohemiancoding.com/sketch --> <title>Logo-white</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Logo-white" fill="#FFFFFF"> <g id="Group"> <path d="M92.6963305,153.35517 L69.6726254,130.331465 L92.6963305,107.30776 L92.6963305,66.7055226 L49.3715069,110.030346 L32.472925,93.1317642 L92.6963305,32.9083587 L92.6963305,0.803652143 L0.106126393,93.3938562 L92.6963305,185.98406 L92.6963305,153.35517 Z" id="Combined-Shape"></path> </g> <g id="Group" opacity="0.502623601" transform="translate(136.800003, 93.000000) scale(-1, 1) translate(-136.800003, -93.000000) translate(90.300003, 0.000000)"> <path d="M92.6963305,153.35517 L69.6726254,130.331465 L92.6963305,107.30776 L92.6963305,66.7055226 L49.3715069,110.030346 L32.472925,93.1317642 L92.6963305,32.9083587 L92.6963305,0.803652143 L0.106126393,93.3938562 L92.6963305,185.98406 L92.6963305,153.35517 Z" opacity="0.387068563"></path> </g> </g> </g> </svg>';
 
 $wp_admin_bar->add_menu( array(
  'id' => 'flatsome_panel',
@@ -44,7 +44,7 @@ $wp_admin_bar->add_menu( array(
 $wp_admin_bar->add_menu( array(
  'parent' => 'flatsome_panel',
  'id' => 'flatsome_panel_license',
- 'title' => 'Theme License',
+ 'title' => 'Theme Registration',
  'href' => $panel_url
 ));
 
@@ -213,18 +213,16 @@ if(is_woocommerce_activated()) {
   $wp_admin_bar->add_menu( array(
    'parent' => 'theme_options',
    'id' => 'options_shop',
-   'title' => '<span class="dashicons dashicons-cart" style="'.$icon_style.'"></span> Shop (WooCommerce)',
+   'title' => '<span class="dashicons dashicons-cart" style="'.$icon_style.'"></span>&nbsp;WooCommerce',
    'href' =>  $optionUrl_panel.'woocommerce'
   ));
 
-  if(fl_woocommerce_version_check('3.3.0') ) {
     $wp_admin_bar->add_menu( array(
      'parent' => 'options_shop',
      'id' => 'options_shop_store_notice',
      'title' => __( 'Store Notice', 'woocommerce' ),
      'href' =>  $optionUrl_section.'woocommerce_store_notice'
     ));
-  }
 
   $wp_admin_bar->add_menu( array(
    'parent' => 'options_shop',
@@ -254,15 +252,12 @@ if(is_woocommerce_activated()) {
    'href' =>  $optionUrl_section.'payment-icons'
   ));
 
-
-  if(fl_woocommerce_version_check('3.3.0') ) {
     $wp_admin_bar->add_menu( array(
        'parent' => 'options_shop',
        'id' => 'options_shop_product_images',
        'title' => __( 'Product Images', 'woocommerce' ),
        'href' =>  $optionUrl_section.'woocommerce_product_images'
       ));
-  }
 
   $wp_admin_bar->add_menu( array(
    'parent' => 'options_shop',
@@ -360,6 +355,13 @@ $wp_admin_bar->add_menu( array(
  'href' =>  $optionUrl_section.'share'
 ));
 
+	$wp_admin_bar->add_menu( array(
+		'parent' => 'theme_options',
+		'id'     => 'options_notifications',
+		'title'  => '<span class="dashicons dashicons-testimonial" style="' . $icon_style . '"></span> Notifications',
+		'href'   => $optionUrl_section . 'notifications',
+	) );
+
 
 $wp_admin_bar->add_menu( array(
  'parent' => 'theme_options',
@@ -383,19 +385,12 @@ $wp_admin_bar->add_menu( array(
  'href' =>  $advanced_url.'of-option-customcss'
 ));
 
-$wp_admin_bar->add_menu( array(
- 'parent' => 'options_advanced',
- 'id' => 'options_ux_builder',
- 'title' => 'UX Builder',
- 'href' =>  $advanced_url.'of-option-uxbuilder'
-));
-
 
 $wp_admin_bar->add_menu( array(
  'parent' => 'options_advanced',
- 'id' => 'options_advanced_custom_lazyloading',
- 'title' => 'Lazy Loading',
- 'href' =>  $advanced_url.'of-option-lazyloading'
+ 'id' => 'options_advanced_performance',
+ 'title' => 'Performance',
+ 'href' =>  $advanced_url.'of-option-performance'
 ));
 
 $wp_admin_bar->add_menu( array(
@@ -410,6 +405,13 @@ $wp_admin_bar->add_menu( array(
  'id' => 'options_advanced_site_search',
  'title' => 'Site Search',
  'href' =>  $advanced_url.'of-option-sitesearch'
+));
+
+$wp_admin_bar->add_menu( array(
+ 'parent' => 'options_advanced',
+ 'id' => 'options_advanced_instagram_api',
+ 'title' => 'Instagram',
+ 'href' =>  $advanced_url.'of-option-instagram'
 ));
 
 $wp_admin_bar->add_menu( array(
@@ -434,10 +436,10 @@ $wp_admin_bar->add_menu( array(
 ) );
 
 $wp_admin_bar->add_menu( array(
- 'parent' => 'options_advanced',
- 'id' => 'options_advanced_custom_fonts',
- 'title' => 'Custom Fonts',
- 'href' =>  $advanced_url.'of-option-customfonts'
+  'parent' => 'options_advanced',
+  'id' => 'options_advanced_woocommerce',
+  'title' => 'WooCommerce',
+  'href' =>  $advanced_url.'of-option-woocommerce'
 ));
 
 $wp_admin_bar->add_menu( array(
@@ -463,9 +465,9 @@ $wp_admin_bar->add_menu( array(
 
 $wp_admin_bar->add_menu( array(
  'parent' => 'options_advanced',
- 'id' => 'options_advanced_woocommerce',
- 'title' => 'WooCommerce',
- 'href' =>  $advanced_url.'of-option-woocommerce'
+ 'id' => 'options_advanced_mobile',
+ 'title' => 'Mobile',
+ 'href' =>  $advanced_url.'of-option-mobile'
 ));
 
 $wp_admin_bar->add_menu( array(

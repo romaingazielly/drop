@@ -29,6 +29,8 @@ function flatsome_page_header_shortcode($atts) {
     'bg' => '',
     'bg_color' => '',
     'bg_overlay' => '',
+	'bg_overlay__sm' => '',
+	'bg_overlay__md' => '',
     'bg_pos' => '',
     'bg_size' => '',
 
@@ -178,7 +180,7 @@ function flatsome_page_header_shortcode($atts) {
       <div class="title-content <?php echo implode( ' ', $content_classes ); ?>">
         <?php echo $content; ?>
       </div>
-    </div><!-- flex-row -->
+    </div>
 
      <?php
       // Get custom CSS
@@ -201,7 +203,7 @@ function flatsome_page_header_shortcode($atts) {
           'property' => 'background-color',
         ),
         'bg_color' => array(
-          'selector' => '',
+          'selector' => $style === 'featured' || $style === 'normal' ? '.' . $style . '-title' : '',
           'property' => 'background-color',
         ),
         'bg_pos' => array(
@@ -211,9 +213,9 @@ function flatsome_page_header_shortcode($atts) {
       );
       echo ux_builder_element_style_tag($_id, $args, $atts);
     ?>
-  </div><!-- .page-title -->
+  </div>
   <?php if($style == 'divided') echo '<div class="container header-wrapper-divider"><hr/></div>'; ?>
-  </div><!-- .page-header-wrapper -->
+  </div>
   <?php
    $content = ob_get_contents();
    ob_end_clean();

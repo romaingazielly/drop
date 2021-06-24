@@ -20,12 +20,18 @@ defined( 'ABSPATH' ) || exit;
 global $product;
 
 // Ensure visibility.
-if ( empty( $product ) || ! $product->is_visible() ) {
-	return;
+if ( fl_woocommerce_version_check( '4.4.0' ) ) {
+	if ( empty( $product ) || false === wc_get_loop_product_visibility( $product->get_id() ) || ! $product->is_visible() ) {
+		return;
+	}
+} else {
+	if ( empty( $product ) || ! $product->is_visible() ) {
+		return;
+	}
 }
 
 // Check stock status.
-$out_of_stock = get_post_meta( $post->ID, '_stock_status', true ) == 'outofstock';
+$out_of_stock = ! $product->is_in_stock();
 
 // Extra post classes.
 $classes   = array();
@@ -37,7 +43,7 @@ if ( $out_of_stock ) $classes[] = 'out-of-stock';
 
 ?>
 
-<div <?php fl_woocommerce_version_check( '3.4.0' ) ? wc_product_class( $classes, $product ) : post_class( $classes ); ?>>
+<div <?php wc_product_class( $classes, $product ); ?>>
 	<div class="col-inner">
 	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 	<div class="product-small box <?php echo flatsome_product_box_class(); ?>">
@@ -64,7 +70,7 @@ if ( $out_of_stock ) $classes[] = 'out-of-stock';
 				<?php do_action( 'flatsome_product_box_actions' ); ?>
 			</div>
 			<?php if ( $out_of_stock ) { ?><div class="out-of-stock-label"><?php _e( 'Out of stock', 'woocommerce' ); ?></div><?php } ?>
-		</div><!-- box-image -->
+		</div>
 
 		<div class="box-text <?php echo flatsome_product_box_text_class(); ?>">
 			<?php
@@ -82,8 +88,8 @@ if ( $out_of_stock ) $classes[] = 'out-of-stock';
 				do_action( 'flatsome_product_box_after' );
 
 			?>
-		</div><!-- box-text -->
-	</div><!-- box -->
+		</div>
+	</div>
 	<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
-	</div><!-- .col-inner -->
-</div><!-- col -->
+	</div>
+</div>

@@ -15,7 +15,7 @@
 				dynamic_sidebar('shop-sidebar');
 			}
 		?>
-	</div><!-- col large-3 -->
+	</div>
 
 	<div class="col large-9">
 		<div class="row">
@@ -49,10 +49,10 @@
 					do_action( 'woocommerce_single_product_summary' );
 				?>
 
-			</div><!-- .summary -->
+			</div>
 
 
-			</div><!-- .row -->
+			</div>
 			<div class="product-footer">
 			<?php
 					/**
@@ -66,7 +66,7 @@
 				?>
 			</div>
 	
-    </div><!-- col large-9 -->
+    </div>
 
-</div><!-- .row -->
-</div><!-- .product-main -->
+</div>
+</div>
